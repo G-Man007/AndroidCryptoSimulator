@@ -40,7 +40,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Portfolio value"
+            android:text="$Portfolio value"
             android:textAlignment="center"
             android:textSize="20dp"
             android:paddingBottom="30dp"
@@ -59,7 +59,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Crypto owned"
+                android:text="Bitcoin"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -67,7 +67,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Crypto value"
+                android:text="$6,443.01"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -81,7 +81,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:text="Crypto owned"
+                    android:text="Ethereum"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -89,7 +89,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:text="Crypto value"
+                    android:text="$207.90"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -103,15 +103,16 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:text="Crypto owned"
+                    android:text="Ripple"
                     android:textAlignment="center"
                     android:textSize="20sp" />
+
 
                 <TextView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:text="Crypto value"
+                    android:text="$0.46"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
