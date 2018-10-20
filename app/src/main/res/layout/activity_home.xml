@@ -44,7 +44,7 @@
                 android:textAlignment="center"
                 android:textSize="30dp"
                 android:paddingBottom="150dp"
-                android:paddingTop="20dp"/>
+                android:paddingTop="10dp"/>
 
 
             <TableLayout
