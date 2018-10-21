@@ -48,14 +48,19 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="100dp"
-                android:text="$225.22"
-                android:textColor="#E53E3E"
-                android:textAlignment="center"
-                android:textSize="20dp" />
+                    android:id="@+id/value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="$225.22"
+                    android:textColor="#E53E3E"
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:id="@+id/graph" />
 
             <TextView
                 android:layout_width="fill_parent"

@@ -23,8 +23,8 @@ public class Home extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_trade:
+                    mTextMessage.setText(R.string.title_trade);
                     return true;
             }
             return false;
