@@ -1,11 +1,13 @@
 package com.example.branden.cryptocurrencytradingsimulator;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
@@ -17,14 +19,16 @@ public class Home extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_search:
+                    toaster("Search stuff", 500);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_settings:
+                    toaster("Settings page", 500);
                     return true;
                 case R.id.navigation_trade:
-                    mTextMessage.setText(R.string.title_trade);
+                    toaster("Trade",500);
+                case R.id.navigation_home:
+                    toaster("I'm Home", 500);
                     return true;
             }
             return false;
@@ -39,6 +43,20 @@ public class Home extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void toaster(String message, int length){
+
+        final Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, length);
     }
 
 }
