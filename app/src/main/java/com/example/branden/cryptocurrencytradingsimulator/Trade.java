@@ -20,13 +20,13 @@ public class Trade extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade);
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = (GraphView) findViewById(R.id.tradeGraph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
+                new DataPoint(0, 6),
+                new DataPoint(1, 3),
+                new DataPoint(2, 4),
+                new DataPoint(3, 4),
+                new DataPoint(4, 2)
         });
         graph.addSeries(series);
 

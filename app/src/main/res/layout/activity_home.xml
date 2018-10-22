@@ -11,7 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:isScrollContainer="false" tools:layout_editor_absoluteY="51dp" tools:layout_editor_absoluteX="0dp">
+            android:isScrollContainer="false"
+            tools:layout_editor_absoluteY="51dp"
+            tools:layout_editor_absoluteX="0dp">
 
 
         <LinearLayout
@@ -27,35 +29,44 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$126,724.87"
+                    android:text="$1010.56"
                     android:textAlignment="center"
                     android:textSize="30dp"
-                    android:paddingBottom="150dp"
-                    android:paddingTop="10dp"/>
+                    android:paddingBottom="0dp"
+                    android:paddingTop="10dp"
+            />
 
 
-            <TableLayout
+            <com.jjoe64.graphview.GraphView
+                    android:id="@+id/homeGraph"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="200dp"
+                    app:layout_constraintBottom_toTopOf="@+id/portfolioTable"
+                    app:layout_constraintTop_toBottomOf="@id/textView"
+            />
+            <TableLayout
+                    android:id="@+id/portfolioTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/btnUpdate"
+                    app:layout_constraintTop_toBottomOf="@+id/homeGraph">
 
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:text="Bitcoin"
-                            android:textAlignment="center"
+                            android:text="CEFS"
                             android:textSize="20sp"/>
 
                     <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:text="$6,443.01"
-                            android:textAlignment="center"
+                            android:text="$802.20"
                             android:textSize="20sp"/>
 
                 </TableRow>
@@ -65,19 +76,17 @@
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:text="Ethereum"
-                            android:textAlignment="center"
                             android:textSize="20sp"/>
 
                     <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:text="$207.90"
-                            android:textAlignment="center"
                             android:textSize="20sp"/>
 
                 </TableRow>
@@ -87,22 +96,19 @@
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:layout_width="198dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:ems="10"
                             android:text="Ripple"
-                            android:textAlignment="center"
                             android:textSize="20sp"/>
 
 
                     <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:text="$0.46"
-                            android:textAlignment="center"
-                            android:textSize="20sp" tools:layout_editor_absoluteY="34dp"
-                            tools:layout_editor_absoluteX="92dp"/>
+                            android:textSize="20sp"/>
 
                 </TableRow>
             </TableLayout>
