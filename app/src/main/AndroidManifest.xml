@@ -22,10 +22,10 @@
             android:name=".Trade"
             android:label="@string/app_name"/>
         <activity
-                android:name=".settings"
+                android:name=".Settings"
                 android:label="@string/app_name"/>
         <activity
-                android:name=".search"
+                android:name=".Search"
                 android:label="@string/app_name"/>
     </application>
 
