@@ -48,14 +48,6 @@ public class Home extends AppCompatActivity {
     }
 
     private void configureNavigationButtons(){
-        Button tradeButton = (Button) findViewById(R.id.tradeBtn);
-        tradeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Home.this, Trade.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-
         Button settingsButton = (Button) findViewById(R.id.settingsBtn);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
