@@ -40,13 +40,5 @@ public class Settings extends AppCompatActivity {
                 startActivity(new Intent(Settings.this, Search.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-
-        Button tradeButton = (Button) findViewById(R.id.tradeBtn);
-        tradeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Settings.this, Trade.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
     }
 }
