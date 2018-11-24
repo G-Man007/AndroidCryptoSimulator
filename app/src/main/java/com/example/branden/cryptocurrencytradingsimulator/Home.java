@@ -12,16 +12,26 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+/**
+ * Creates the Home activity that is displayed to the user on boot which houses the portfolio and graph related to
+ * the portfolio.
+ * */
 public class Home extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+    /**
+     * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
+     * functions required based on the activity. The Home onCreate() function creates the graph, sets the view to the
+     * correct XML layout, and calls {@link #configureNavigationButtons()}.
+     *
+     * @ccs.Pre-condition The navigation button to launch Home has been pressed or the app has just been booted.
+     * @ccs.Post-condition The graphs are created, the textview is set, and the navigation buttons are configured
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
 
         GraphView graph = (GraphView) findViewById(R.id.homeGraph);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
@@ -47,15 +57,15 @@ public class Home extends AppCompatActivity {
         configureNavigationButtons();
     }
 
+    /**
+     * configureNavigationButtons() sets each of the Button XML elements click listeners to their corresponding button
+     * in which they will startActivity the proper activity with the FLAG_ACTIVITY_CLEAR_TOP flag in order to clear
+     * the stack down to any previous instances of the desired activity.
+     *
+     * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
+     * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
+     * */
     private void configureNavigationButtons(){
-        Button tradeButton = (Button) findViewById(R.id.tradeBtn);
-        tradeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Home.this, Trade.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-
         Button settingsButton = (Button) findViewById(R.id.settingsBtn);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,4 +82,20 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
+    /*private void getTrades(){
+        Cursor data = mDataBase.getData();
+
+        ArrayList<String> listOfData = new ArrayList<String>;
+
+        //gets bought cypto name
+        while(data.moveToNext()){
+            //gets the data from the first colume
+            //adds it to arrayList
+            listOfData.add(data.getString(1));
+        }
+
+        //get curent price for owned cyptos
+
+    }*/
 }

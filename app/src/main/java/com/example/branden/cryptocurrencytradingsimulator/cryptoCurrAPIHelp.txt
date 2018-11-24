@@ -1,0 +1,130 @@
+API:
+	See https://min-api.cryptocompare.com/#api for complete details
+
+	All Coin Prices Link:
+		https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,XLM,EOS,LTC,USDT,ADA,BNB,XMR,TRX,IOT,DASH,NEO,ETC,ZRX,XEM,ZEC,VEN,DOGE,BTG,QTUM,AE,LINK,BAT,DCR,XRB,LSK,ICX,DGB,BTS,SNT,SC,QASH,XVG,WTC,GNO,WAVES,PPT,ETP,GNT,FUN,LRC,STORJ,KMD,STRAT,MCO,CVC,REP,PAY,ARDR,XUC,BNT,DGD,KNC,MAID,SALT,HSR,ARK,STEEM,PIVX,MONA,DCN,ZEN,SUB,VERI,NXT,SYS,GAS&tsyms=USD,EUR,JPY,GBP,CHF,CAD,AUD,HKD,SEK,MXN,NZD,SGD,NOK,KRW,TRY,INR,RUB,BRL,ZAR,PEN,ZOF,UGX,EGP,MGA,COP&extraParams=cryptoSimulatorSchoolProject
+
+	Simple Price (Top 7) Link:
+	https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,BCH,XLM,EOS,LTC&tsyms=USD,EUR,JPY,GBP&extraParams=cryptoSimulatorSchoolProject
+
+	Advanced Statistics Link (Insert in specific coin after fsysms, BTC is example coin):
+	https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD&extraParams=cryptoSimulatorSchoolProject
+
+-List of Crypto and World Currencies used in this API:
+-Used the top 69 (Nice) Crypto Currencies as of October 21, 2018
+-&fsyms - crypto parameter fsyms is limited to 300 characters so the top 69 was the maximum input, not chosen
+-&tsyms - world currency parameter tsyms is 100 characters
+-&extraParams - needed as CryptoCompare requested users state what your application name for ex: SchoolProject
+
+Crypto Currencies (69):
+BTC - Bitcoin
+ETH - Ethereum
+XRP - Ripple
+BCH - Bitcoin Cash
+XLM - Stellar
+EOS - EOS
+LTC - Litecoin
+USDT - Tether
+ADA - Cardano
+XMR - Monero
+TRX - Tronix
+IOT - IOTA
+DASH - DisgitalCash
+NEO - NEO
+ETC - Ethereum Classic
+ZRX - 0x
+XEM - NEM
+ZEC - ZCash
+VEN - Vechain
+DOGE - Dogecoin
+BTG - Bitcoin Gold
+QTUM - QTUM
+AE - Aeternity
+LINK - ChainLink
+BAT - Basic Attention Token
+DCR - Decred
+XRB - Nano
+LSK - Lisk
+ICX - ICON Project
+DGB - DigiByte
+BTS - Bitshares
+SNT - Status Network Token
+SC - Saicoin
+QASH - Quoine Liquid
+XVG - Verge
+WTC - Waltonchain
+GNO - Gnosis
+WAVES - Waves
+PPT - Populous
+ETP - Metaverse
+GNT - Golem Network Token
+FUN - FunFair
+LRC - Loopring
+STORJ - Storj
+KMD - Komodo
+STRAT - Stratis
+MCO - Monaco
+CVC - Civic
+REP - Augur
+PAY - TenX
+ARDR - Ardor
+XUC - Exchange Union
+BNT - Bancor Network Token
+DGD - Digix DAO
+KNC - Kyber Network
+MAIN - MaidSafe Coin
+SALT - Salt Lending
+HSR - Hshare
+ARK - ARK
+STEEM - Steem
+PIVX - Private Instant Verified Transaction
+MONA - MonaCoin
+DCN - Dentacoin
+ZEN - ZenCash
+SUB - Substratum Network
+VERI - Veritaseum
+NXT - Nxt
+SYS - SysCoin
+GAS - Gas
+
+World Currencies (24):
+USD - US Dollar
+EUR - Euro
+JPY - Japanese Yen
+GBP - Pound Sterling
+CHF - Swiss Franc
+CAD - Canadian Dollar
+AUD - Australian Dollar
+HKD - Hong Kong Dollar
+SEK - Swedish Krona
+MXN - Mexican Peso
+NZD - New Zealand Dollar
+SGD - Singapore Dollar
+NOK - Norwegian Krone
+KRW - South Korean Won
+TRY - Turkis Lira
+INR - Indian Rupee
+RUB - Russian Ruble
+BRL - Brizilian Real
+ZAR - South African Rand
+PEN - Peruvian Sol
+ZOF - CFA Franc
+UGX - Ugandan Shilling
+EGP - Egyptian Pound
+MGA - Malagasy Ariary
+COP - Columbian Peso
+
+USED in API:
+PRICE
+LASTUPDATE
+OPENDAY
+HIGHDAY
+LOWDAY
+MKTCAP
+SUPPLY
+TOTALVOLUME24H
+TOTALVOLUME24HTO
+CHANGEPCTDAY
+CHANGEPCT24HOUR
+CHANGE24HOUR
+FROMSYMBOL
