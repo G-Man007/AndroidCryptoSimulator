@@ -20,7 +20,6 @@ public class Home extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-
     /**
      * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Home onCreate() function creates the graph, sets the view to the
@@ -33,8 +32,6 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
 
         GraphView graph = (GraphView) findViewById(R.id.homeGraph);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
@@ -69,14 +66,6 @@ public class Home extends AppCompatActivity {
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
      * */
     private void configureNavigationButtons(){
-        Button tradeButton = (Button) findViewById(R.id.tradeBtn);
-        tradeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Home.this, Trade.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-
         Button settingsButton = (Button) findViewById(R.id.settingsBtn);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,4 +82,20 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
+    /*private void getTrades(){
+        Cursor data = mDataBase.getData();
+
+        ArrayList<String> listOfData = new ArrayList<String>;
+
+        //gets bought cypto name
+        while(data.moveToNext()){
+            //gets the data from the first colume
+            //adds it to arrayList
+            listOfData.add(data.getString(1));
+        }
+
+        //get curent price for owned cyptos
+
+    }*/
 }
