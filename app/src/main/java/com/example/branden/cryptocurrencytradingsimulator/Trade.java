@@ -30,6 +30,7 @@ import java.util.Vector;
 public class Trade extends AppCompatActivity {
 
     public TransacationsDatabase dbTransacation;
+    public PortfolioDatabase dbPortfolio;
     public PortfolioHistoryDatabase dbhistory;
     public SettingsDatabase dbSettings;
 
@@ -113,6 +114,13 @@ public class Trade extends AppCompatActivity {
         success = dbTransacation.addRealData("transacationsDatabase", "price", bPrice);
         if(success == false) {toaster("Trade fail", 1500); return;}
 
+        dbPortfolio.addIntData("portfolioTable", "quantity", quant);
+        dbPortfolio.addRealData("portfolioTable", "buyPrice", bPrice);
+        dbPortfolio.addStrData("portfolioTable", "buyTime", time);
+        dbPortfolio.addStrData("portfolioTable", "buyDate", date);
+        dbPortfolio.addStrData("portfolioTable", "name", name);
+
+
         toaster("Your trade was successful!", 1500);
     }
 
@@ -126,10 +134,34 @@ public class Trade extends AppCompatActivity {
         String time = "";
         String date = "";
 
+        Vector<String> ownedCypto = dbPortfolio.getName();
+        Vector<Integer> quants = dbPortfolio.getQuantity();
+
+        boolean validTrade = false;
+        int rownum = 0;//the row number to sell from
+
+        //checks if the cypto to sell is owned and enough is owned
+        for(int x=0; x < ownedCypto.size(); x++){
+            if(ownedCypto.get(x) == name){
+                if(quants.get(x) >= quant) {
+                    validTrade = true;
+                    rownum = x;
+                }
+            }
+        }
+
+        if(validTrade == false){
+            toaster("You don't own enough of this cypto to execute this trade", 1500);
+            return;
+        }
+
+        //remove cypto from protfolio database
+
+        //get cypto price from API
         String[] cyptoData = apiData.search(name);
         sPrice = Integer.parseInt(cyptoData[1]);
 
-        //get buying power to see if play has enough funds
+        //get current buying power from database
         Vector<Double> temp1 =  dbSettings.getBuyingPower();
         double buyPower = temp1.get(0);
 

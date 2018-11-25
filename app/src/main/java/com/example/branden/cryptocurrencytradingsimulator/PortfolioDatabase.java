@@ -12,7 +12,7 @@ public class PortfolioDatabase extends DatabaseHelper {
     public static final String PTCol2 = "buyPrice";
     public static final String PTCol3 = "buyTime";
     public static final String PTCol4 = "buyDate";
-
+    public static final String PTCol5 = "name";
 
     public static final String TradeHistory_Table = "tradeHistory";
 
@@ -27,7 +27,8 @@ public class PortfolioDatabase extends DatabaseHelper {
                 PTCol1 + "INTEGER" +
                 PTCol2 + "REAL" + // 8-bit floating point number
                 PTCol3 + "TEXT" +
-                PTCol4 + "TEXT";
+                PTCol4 + "TEXT" +
+                PTCol5 + "TEXT";
         sqLiteDatabase.execSQL(createTable);
     }
 
@@ -100,4 +101,24 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
+    public Vector<String> getName(){
+        Vector<String> results = new Vector();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select "+ PTCol5 + " From " + MDatabasename;
+        Cursor data = db.rawQuery(query, null);
+
+        int index =0;
+        if (data.moveToFirst()) {
+            do {
+                results.add(data.getString(index));
+                index++;
+            } while (data.moveToNext());
+        }
+
+        return results;
+    }
+
+    public void removeRow(int rowNum){
+
+    }
 }
