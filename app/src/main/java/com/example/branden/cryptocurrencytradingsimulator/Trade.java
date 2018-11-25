@@ -116,8 +116,50 @@ public class Trade extends AppCompatActivity {
         toaster("Your trade was successful!", 1500);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sell(){
-        
+        String temp = quantity.getText().toString();
+        int quant = Integer.parseInt(temp);
+        int sPrice = 0;//buy price
+        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
+        String name = cyptoName.getText().toString();
+        String time = "";
+        String date = "";
+
+        String[] cyptoData = apiData.search(name);
+        sPrice = Integer.parseInt(cyptoData[1]);
+
+        //get buying power to see if play has enough funds
+        Vector<Double> temp1 =  dbSettings.getBuyingPower();
+        double buyPower = temp1.get(0);
+
+        //update portfolio value
+        buyPower += (quant * sPrice);
+        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
+
+        //gets time and date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
+
+        String temp2 = dtf.format(now);
+        char[] fullDate = temp2.toCharArray();
+        date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
+        time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
+
+
+        //put data in database
+        //tell user fail if unsuccessful and return
+        boolean success = false;
+        success = dbTransacation.addStrData("transacationsDatabase", "name", name);
+        if(success == false) {toaster("Trade fail", 1500); return;}
+        success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 0);
+        if(success == false) {toaster("Trade fail", 1500); return;}
+        success = dbTransacation.addIntData("transacationsDatabase", "quantity", quant);
+        if(success == false) {toaster("Trade fail", 1500); return;}
+        success = dbTransacation.addRealData("transacationsDatabase", "price", sPrice);
+        if(success == false) {toaster("Trade fail", 1500); return;}
+
+        toaster("Your trade was successful!", 1500);
     }
 
     /**
