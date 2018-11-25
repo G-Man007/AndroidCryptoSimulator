@@ -14,7 +14,7 @@ import com.jjoe64.graphview.GraphView;
 /**
  * Creates the Settings activity that is displayed to the user. Settings is currently blank as it is lower priority
  * in creation but will eventually allow the user to modify aspects of the CrpytoCurrency Simulator.
- * */
+ **/
 public class Settings extends AppCompatActivity {
 
     private TextView mTextMessage;

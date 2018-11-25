@@ -13,7 +13,7 @@ import com.jjoe64.graphview.GraphView;
 /**
  * Creates the Search activity that is displayed to the user. Search just has a scrollable box and a text field
  * to prototype what the search menu would be like but is currently a low priority in implementation.
- * */
+ **/
 public class Search extends AppCompatActivity {
 
     private TextView mTextMessage;
