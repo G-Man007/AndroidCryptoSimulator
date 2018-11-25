@@ -1,7 +1,9 @@
 package com.example.branden.cryptocurrencytradingsimulator;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -62,19 +64,23 @@ public class Trade extends AppCompatActivity {
         configureNavigationButtons();
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void buy(){
         String temp = quantity.getText().toString();
         int quant = Integer.parseInt(temp);
         int bPrice = 0;//buy price
-        bPrice =
+        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
         String name = cyptoName.getText().toString();
         String time = "";
         String date = "";
 
+        String[] cyptoData = apiData.search(name);
+        bPrice = Integer.parseInt(cyptoData[1]);
+
         //get buying power to see if play has enough funds
-        Vector<Double> temp =  dbSettings.getBuyingPower();
-        double buyPower = temp.get(0);
+        Vector<Double> temp1 =  dbSettings.getBuyingPower();
+        double buyPower = temp1.get(0);
 
         if( buyPower < (quant * bPrice)){
             toaster("You do not have enough buying power to execute this trade", 1500);
@@ -85,13 +91,12 @@ public class Trade extends AppCompatActivity {
         buyPower -= (quant * bPrice);
         dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
 
-
         //gets time and date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
 
-        String temp1 = dtf.format(now);
-        char[] fullDate = temp1.toCharArray();
+        String temp2 = dtf.format(now);
+        char[] fullDate = temp2.toCharArray();
         date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
         time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
 
@@ -100,15 +105,19 @@ public class Trade extends AppCompatActivity {
         //tell user fail if unsuccessful and return
         boolean success = false;
         success = dbTransacation.addStrData("transacationsDatabase", "name", name);
-        if(success == false) toaster("Trade fail", 1500); return;
+        if(success == false) {toaster("Trade fail", 1500); return;}
         success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 1);
-        if(success == false) toaster("Trade fail", 1500); return;
+        if(success == false) {toaster("Trade fail", 1500); return;}
         success = dbTransacation.addIntData("transacationsDatabase", "quantity", quant);
-        if(success == false) toaster("Trade fail", 1500); return;
+        if(success == false) {toaster("Trade fail", 1500); return;}
         success = dbTransacation.addRealData("transacationsDatabase", "price", bPrice);
-        if(success == false) toaster("Trade fail", 1500); return;
+        if(success == false) {toaster("Trade fail", 1500); return;}
 
         toaster("Your trade was successful!", 1500);
+    }
+
+    private void sell(){
+        
     }
 
     /**
