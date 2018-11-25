@@ -23,273 +23,273 @@
                 android:orientation="vertical">
 
             <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="20dp"
-                    android:text="Ripple"
-                    android:textAlignment="center"
-                    android:textSize="20sp"/>
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="20dp"
+                android:text="Ripple"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
 
             <TextView
-                    android:id="@+id/value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:text="$225.22"
-                    android:textColor="#E53E3E"
-                    android:textAlignment="center"
-                    android:textSize="20sp"/>
+                android:id="@+id/value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="$225.22"
+                android:textColor="#E53E3E"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
 
             <com.jjoe64.graphview.GraphView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:id="@+id/tradeGraph"/>
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/tradeGraph"/>
 
             <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:text="Statistics!"
-                    android:textAlignment="center"
-                    android:textSize="20sp"/>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="Statistics!"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
 
             <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:stretchColumns="0">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:stretchColumns="0">
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Opening Price"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Opening Price"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="$234.56"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="$234.56"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Previous Close"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Previous Close"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="$212.78"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="$212.78"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:text="Day's Range"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Day's Range"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="$205.13 - $233.76"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="$205.13 - $233.76"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:text="52 Week Range"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="52 Week Range"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="$165.47 - $251.11"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="$165.47 - $251.11"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Volume"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Volume"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="903,811"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="903,811"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Average Volume"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Average Volume"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="1,107,715"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="1,107,715"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Bid"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Bid"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="0.00 x 800"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="0.00 x 800"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Ask"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Ask"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="0.00 x 950"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="0.00 x 950"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Return on Assets (ttm)"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Return on Assets (ttm)"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="4.83%"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="4.83%"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="Return on Equity (ttm)"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Return on Equity (ttm)"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="15.75%"
-                            android:textAlignment="center"
-                            android:textSize="15sp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:text="15.75%"
+                        android:textAlignment="center"
+                        android:textSize="15sp"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-            android:id="@+id/transactionBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|bottom"
-            app:layout_constraintBottom_toTopOf="@id/navBar">
+        android:id="@+id/transactionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center|bottom"
+        app:layout_constraintBottom_toTopOf="@id/navBar">
         <Button
-                android:id="@+id/buy"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Buy"/>
+            android:id="@+id/buy"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Buy"/>
 
         <EditText
-                android:id="@+id/num"
-                android:hint="#"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/buy"
-                android:textAlignment="center"/>
+            android:id="@+id/num"
+            android:hint="#"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/buy"
+            android:textAlignment="center"/>
 
         <Button
                 android:layout_height="wrap_content"
@@ -318,7 +318,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_home" />
-
         <Button
             android:id="@+id/searchBtn"
             android:layout_width="wrap_content"
@@ -326,7 +325,6 @@
             android:text="@string/title_search"
             app:layout_constraintLeft_toRightOf="@+id/homeBtn"
             app:layout_constraintStart_toEndOf="@+id/homeBtn" />
-
         <Button
             android:id="@+id/settingsBtn"
             android:layout_width="wrap_content"
@@ -335,5 +333,4 @@
             app:layout_constraintLeft_toRightOf="@+id/searchBtn"
             app:layout_constraintStart_toEndOf="@+id/searchBtn" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

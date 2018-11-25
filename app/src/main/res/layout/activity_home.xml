@@ -107,7 +107,6 @@
                         android:ems="10"
                         android:text="$0.46"
                         android:textSize="20sp" />
-
                 </TableRow>
             </TableLayout>
         </LinearLayout>
