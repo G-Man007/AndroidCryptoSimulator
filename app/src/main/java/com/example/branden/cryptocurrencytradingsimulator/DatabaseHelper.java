@@ -3,6 +3,7 @@ package com.example.branden.cryptocurrencytradingsimulator;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import java.util.Vector;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
