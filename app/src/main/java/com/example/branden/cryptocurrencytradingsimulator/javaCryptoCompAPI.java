@@ -300,7 +300,7 @@ try {
     static String[] search(String coin) {
         String coinInfo[] = new String[14];
         for(int i = 0; i<69; i++){
-            if(coin == mCoinData[i][13]){
+            if(coin == mCoinData[i][13] || coin == mCoinData[i][0]){
                 for(int j=0; j<14; j++){
                     coinInfo[j] = mCoinData[i][j];
                 }
