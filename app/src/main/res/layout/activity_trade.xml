@@ -2,29 +2,25 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:layout_column="1">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:isScrollContainer="false"
-        app:layout_constraintBottom_toTopOf="@+id/transactionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        >
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:isScrollContainer="false"
+            app:layout_constraintBottom_toTopOf="@+id/transactionBar"
+            app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/statsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|bottom"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+                android:id="@+id/statsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/transactionBar"
+                android:gravity="center|bottom"
+                android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name"
@@ -296,18 +292,20 @@
             android:textAlignment="center"/>
 
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/sell"
-            android:text="Sell"
-            app:layout_constraintLeft_toRightOf="@id/num"
-            app:layout_constraintBottom_toTopOf="@+id/navigation"/>
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/sell"
+                android:text="Sell"
+                app:layout_constraintLeft_toRightOf="@id/num"
+                app:layout_constraintBottom_toTopOf="@+id/navBar"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:orientation="horizontal"
         android:layout_weight="1"
         android:gravity="center|bottom"
@@ -316,33 +314,23 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <Button
-            android:text="@string/title_home"
+            android:id="@+id/homeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/homeBtn"/>
-        <Button
-            android:id="@+id/settingsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_settings"
-            app:layout_constraintLeft_toRightOf="@+id/homeBtn"
-            app:layout_constraintStart_toEndOf="@+id/homeBtn"/>
-
+            android:text="@string/title_home" />
         <Button
             android:id="@+id/searchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_search"
-            app:layout_constraintLeft_toRightOf="@+id/settingsBtn"
-            app:layout_constraintStart_toEndOf="@+id/settingsBtn"/>
-
+            app:layout_constraintLeft_toRightOf="@+id/homeBtn"
+            app:layout_constraintStart_toEndOf="@+id/homeBtn" />
         <Button
-            android:id="@+id/tradeBtn"
+            android:id="@+id/settingsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_trade"
+            android:text="@string/title_settings"
             app:layout_constraintLeft_toRightOf="@+id/searchBtn"
-            app:layout_constraintStart_toEndOf="@+id/searchBtn"/>
+            app:layout_constraintStart_toEndOf="@+id/searchBtn" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
