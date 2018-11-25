@@ -32,7 +32,6 @@ public class PortfolioDatabase extends DatabaseHelper {
         sqLiteDatabase.execSQL(createTable);
     }
 
-
     public Vector<Integer> getQuantity(){
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();

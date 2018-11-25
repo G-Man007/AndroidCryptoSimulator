@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,184 +14,178 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.GraphView;
 import android.widget.Toast;
 import android.os.Handler;
-import java.util.ArrayList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.zip.DataFormatException;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 /**
- * Creates the Trade activity that is displayed to the user, currently displayed as a navigation button for
- * testing purposes but will be implemented as the default window for selecting a crypto-currency.
- * */
+* Creates the Trade activity that is displayed to the user, currently displayed as a navigation button for
+* testing purposes but will be implemented as the default window for selecting a crypto-currency.
+* */
 public class Trade extends AppCompatActivity {
 
-    public TransacationsDatabase dbTransacation;
-    public PortfolioDatabase dbPortfolio;
-    public PortfolioHistoryDatabase dbhistory;
-    public SettingsDatabase dbSettings;
+    private TransactionsDatabase dbTransacation;
+    private PortfolioDatabase dbPortfolio;
+    private PortfolioHistoryDatabase dbhistory;
+    private SettingsDatabase dbSettings;
 
-    TextView cyptoName;
-    EditText quantity;
+    private TextView cryptoName;
+    private EditText quantity;
 
-    /**
-     * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
-     * functions required based on the activity. The Trade onCreate() function creates the graphs, sets the view to the
-     * correct XML layout, and calls {@link #configureNavigationButtons()}.
-     *
-     * @ccs.Pre-condition The navigation button to launch Trade has been pressed.
-     * @ccs.Post-condition The graphs are created, the textview is set, and the navigation buttons are configured
-     * */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trade);
+  /**
+  * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
+  * functions required based on the activity. The Trade onCreate() function creates the graphs, sets the view to the
+  * correct XML layout, and calls {@link #configureNavigationButtons()}.
+  *
+  * @ccs.Pre-condition The navigation button to launch Trade has been pressed.
+  * @ccs.Post-condition The graphs are created, the textview is set, and the navigation buttons are configured
+  * */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_trade);
+    cryptoName = findViewById(R.id.tvName);
+    quantity = findViewById(R.id.etQuantity);
 
-        cyptoName = (TextView) findViewById(R.id.tvName);
-        quantity = (EditText) findViewById(R.id.etQuantity);
+    GraphView graph = findViewById(R.id.tradeGraph);
+    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+            new DataPoint(0, 6),
+            new DataPoint(1, 3),
+            new DataPoint(2, 4),
+            new DataPoint(3, 4),
+            new DataPoint(4, 2)
+    });
+    graph.addSeries(series);
+    configureNavigationButtons();
+  }
 
-        GraphView graph = (GraphView) findViewById(R.id.tradeGraph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 6),
-                new DataPoint(1, 3),
-                new DataPoint(2, 4),
-                new DataPoint(3, 4),
-                new DataPoint(4, 2)
-        });
-        graph.addSeries(series);
-        configureNavigationButtons();
+
+  @RequiresApi(api = Build.VERSION_CODES.O)
+  private void buy(){
+    String temp = quantity.getText().toString();
+    int quantity = Integer.parseInt(temp);
+    int bPrice = 0;//buy price
+    javaCryptoCompAPI apiData = new javaCryptoCompAPI();
+    String name = cryptoName.getText().toString();
+    String time = "";
+    String date = "";
+
+    String[] cryptoData = apiData.search(name);
+    bPrice = Integer.parseInt(cryptoData[1]);
+
+    //get buying power to see if play has enough funds
+    Vector<Double> temp1 =  dbSettings.getBuyingPower();
+    double buyPower = temp1.get(0);
+
+    if( buyPower < (quantity * bPrice)){
+        toaster("You do not have enough buying power to execute this trade", 1500);
+        return;
     }
 
+    //update portfolio value
+    buyPower -= (quantity * bPrice);
+    dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void buy(){
-        String temp = quantity.getText().toString();
-        int quant = Integer.parseInt(temp);
-        int bPrice = 0;//buy price
-        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
-        String name = cyptoName.getText().toString();
-        String time = "";
-        String date = "";
+    //gets time and date
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
 
-        String[] cyptoData = apiData.search(name);
-        bPrice = Integer.parseInt(cyptoData[1]);
-
-        //get buying power to see if play has enough funds
-        Vector<Double> temp1 =  dbSettings.getBuyingPower();
-        double buyPower = temp1.get(0);
-
-        if( buyPower < (quant * bPrice)){
-            toaster("You do not have enough buying power to execute this trade", 1500);
-            return;
-        }
-
-        //update portfolio value
-        buyPower -= (quant * bPrice);
-        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
-
-        //gets time and date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
-
-        String temp2 = dtf.format(now);
-        char[] fullDate = temp2.toCharArray();
-        date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
-        time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
+    String temp2 = dtf.format(now);
+    char[] fullDate = temp2.toCharArray();
+    date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
+    time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
 
 
-        //put data in database
-        //tell user fail if unsuccessful and return
-        boolean success = false;
-        success = dbTransacation.addStrData("transacationsDatabase", "name", name);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 1);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addIntData("transacationsDatabase", "quantity", quant);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addRealData("transacationsDatabase", "price", bPrice);
-        if(success == false) {toaster("Trade fail", 1500); return;}
+    //put data in database
+    //tell user fail if unsuccessful and return
+    boolean success;
+    success = dbTransacation.addStrData("transacationsDatabase", "name", name);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 1);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addIntData("transacationsDatabase", "quantity", quantity);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addRealData("transacationsDatabase", "price", bPrice);
+    if(!success) {toaster("Trade fail", 1500); return;}
 
-        dbPortfolio.addIntData("portfolioTable", "quantity", quant);
-        dbPortfolio.addRealData("portfolioTable", "buyPrice", bPrice);
-        dbPortfolio.addStrData("portfolioTable", "buyTime", time);
-        dbPortfolio.addStrData("portfolioTable", "buyDate", date);
-        dbPortfolio.addStrData("portfolioTable", "name", name);
+    dbPortfolio.addIntData("portfolioTable", "quantity", quantity);
+    dbPortfolio.addRealData("portfolioTable", "buyPrice", bPrice);
+    dbPortfolio.addStrData("portfolioTable", "buyTime", time);
+    dbPortfolio.addStrData("portfolioTable", "buyDate", date);
+    dbPortfolio.addStrData("portfolioTable", "name", name);
 
 
-        toaster("Your trade was successful!", 1500);
-    }
+    toaster("Your trade was successful!", 1500);
+  }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sell(){
-        String temp = quantity.getText().toString();
-        int quant = Integer.parseInt(temp);
-        int sPrice = 0;//buy price
-        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
-        String name = cyptoName.getText().toString();
-        String time = "";
-        String date = "";
+  @RequiresApi(api = Build.VERSION_CODES.O)
+  private void sell(){
+    String temp = quantity.getText().toString();
+    int quantity = Integer.parseInt(temp);
+    int sPrice = 0;//sell price
+    javaCryptoCompAPI apiData = new javaCryptoCompAPI();
+    String name = cryptoName.getText().toString();
+    String time = "";
+    String date = "";
 
-        Vector<String> ownedCypto = dbPortfolio.getName();
-        Vector<Integer> quants = dbPortfolio.getQuantity();
+    Vector<String> ownedCrypto = dbPortfolio.getName();
+    Vector<Integer> quantities = dbPortfolio.getQuantity();
 
-        boolean validTrade = false;
-        int rownum = 0;//the row number to sell from
+    boolean validTrade = false;
 
-        //checks if the cypto to sell is owned and enough is owned
-        for(int x=0; x < ownedCypto.size(); x++){
-            if(ownedCypto.get(x) == name){
-                if(quants.get(x) >= quant) {
-                    validTrade = true;
-                    rownum = x;
-                }
+    //checks if the crypto to sell is owned and enough is owned
+    for(int x=0; x < ownedCrypto.size(); x++){
+        if(ownedCrypto.get(x).equals(name)){
+            if(quantities.get(x) >= quantity) {
+                validTrade = true;
             }
         }
-
-        if(validTrade == false){
-            toaster("You don't own enough of this cypto to execute this trade", 1500);
-            return;
-        }
-
-        //remove cypto from protfolio database
-
-        //get cypto price from API
-        String[] cyptoData = apiData.search(name);
-        sPrice = Integer.parseInt(cyptoData[1]);
-
-        //get current buying power from database
-        Vector<Double> temp1 =  dbSettings.getBuyingPower();
-        double buyPower = temp1.get(0);
-
-        //update portfolio value
-        buyPower += (quant * sPrice);
-        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
-
-        //gets time and date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
-
-        String temp2 = dtf.format(now);
-        char[] fullDate = temp2.toCharArray();
-        date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
-        time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
-
-
-        //put data in database
-        //tell user fail if unsuccessful and return
-        boolean success = false;
-        success = dbTransacation.addStrData("transacationsDatabase", "name", name);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 0);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addIntData("transacationsDatabase", "quantity", quant);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-        success = dbTransacation.addRealData("transacationsDatabase", "price", sPrice);
-        if(success == false) {toaster("Trade fail", 1500); return;}
-
-        toaster("Your trade was successful!", 1500);
     }
+
+    if(!validTrade){
+        toaster("You don't own enough of this crypto to execute this trade", 1500);
+        return;
+    }
+
+    //remove crypto from protfolio database
+
+    //get crypto price from API
+    String[] cryptoData = apiData.search(name);
+    sPrice = Integer.parseInt(cryptoData[1]);
+
+    //get current buying power from database
+    Vector<Double> temp1 =  dbSettings.getBuyingPower();
+    double buyPower = temp1.get(0);
+
+    //update portfolio value
+    buyPower += (quantity * sPrice);
+    dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
+
+    //gets time and date
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
+
+    String temp2 = dtf.format(now);
+    char[] fullDate = temp2.toCharArray();
+    date = date.copyValueOf( fullDate, 0, 9 );//The first 10 charaters are the data
+    time = time.copyValueOf( fullDate, 10, 18 );//the last 8 characters are the time
+
+
+    //put data in database
+    //tell user fail if unsuccessful and return
+    boolean success;
+    success = dbTransacation.addStrData("transacationsDatabase", "name", name);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 0);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addIntData("transacationsDatabase", "quantity", quantity);
+    if(!success) {toaster("Trade fail", 1500); return;}
+    success = dbTransacation.addRealData("transacationsDatabase", "price", sPrice);
+    if(!success) {toaster("Trade fail", 1500); return;}
+
+    toaster("Your trade was successful!", 1500);
+  }
 
     /**
      * configureNavigationButtons() sets each of the Button XML elements click listeners to their corresponding button
@@ -203,7 +196,7 @@ public class Trade extends AppCompatActivity {
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
      * */
     private void configureNavigationButtons(){
-        Button homeButton = (Button) findViewById(R.id.homeBtn);
+        Button homeButton = findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,24 +204,24 @@ public class Trade extends AppCompatActivity {
             }
         });
 
-        Button settingsButton = (Button) findViewById(R.id.settingsBtn);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Trade.this, Settings.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+    Button settingsButton = findViewById(R.id.settingsBtn);
+    settingsButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        startActivity(new Intent(Trade.this, Settings.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+      }
+    });
 
-        Button searchButton = (Button) findViewById(R.id.searchBtn);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Trade.this, Search.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-    }
+    Button searchButton = findViewById(R.id.searchBtn);
+    searchButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startActivity(new Intent(Trade.this, Search.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
+    });
+}
 
-    public void toaster(String message, int length){
+    private void toaster(String message, int length){
 
         final Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
