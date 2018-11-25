@@ -31,6 +31,9 @@ public class Trade extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade);
 
+        TextView name = (TextView)findViewById(R.id.name);
+        name.setText(getIntent().getStringExtra("name"));
+
         GraphView graph = (GraphView) findViewById(R.id.tradeGraph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 6),

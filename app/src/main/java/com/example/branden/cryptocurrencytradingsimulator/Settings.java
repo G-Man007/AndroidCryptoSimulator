@@ -19,7 +19,6 @@ public class Settings extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-
     /**
      * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Settings onCreate() function sets the view to the correct XML

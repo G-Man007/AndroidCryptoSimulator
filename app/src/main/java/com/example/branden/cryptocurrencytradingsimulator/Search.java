@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -17,6 +20,7 @@ import com.jjoe64.graphview.GraphView;
 public class Search extends AppCompatActivity {
 
     private TextView mTextMessage;
+    String[] cryptoName = javaCryptoCompAPI.getCoinNames();
 
     /**
      * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
@@ -30,6 +34,19 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        ListView list = (ListView)findViewById(R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, cryptoName);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent();
+                intent.putExtra("name", cryptoName[i]);
+                intent.setClass(Search.this, Trade.class);
+                startActivity(intent);
+            }
+        });
 
         mTextMessage = (TextView) findViewById(R.id.message);
         configureNavigationButtons();
