@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class TransacationsDatabase extends DatabaseHelper{
+public class TransacationsDatabase extends DatabaseHelper {
 
     public static final String PTCol1 = "name";
     public static final String PTCol2 = "transacationsType";//0= sell 1 = buy
@@ -27,13 +27,13 @@ public class TransacationsDatabase extends DatabaseHelper{
         sqLiteDatabase.execSQL(createTable);
     }
 
-    public Vector<String> getNames(){
+    public Vector<String> getNames() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getString(index));
@@ -44,13 +44,13 @@ public class TransacationsDatabase extends DatabaseHelper{
         return results;
     }
 
-    public Vector<Integer> getTransacationsType(){
+    public Vector<Integer> getTransacationsType() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getInt(index));
@@ -61,13 +61,13 @@ public class TransacationsDatabase extends DatabaseHelper{
         return results;
     }
 
-    public Vector<Integer> getQuantity(){
+    public Vector<Integer> getQuantity() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getInt(index));
@@ -78,13 +78,13 @@ public class TransacationsDatabase extends DatabaseHelper{
         return results;
     }
 
-    public Vector<Double> getPrice(){
+    public Vector<Double> getPrice() {
         Vector<Double> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getDouble(index));
@@ -94,6 +94,4 @@ public class TransacationsDatabase extends DatabaseHelper{
 
         return results;
     }
-
-
 }

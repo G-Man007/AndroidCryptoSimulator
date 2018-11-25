@@ -29,6 +29,7 @@ public class Trade extends AppCompatActivity {
 
     public TransacationsDatabase dbTransacation;
     public PortfolioHistoryDatabase dbhistory;
+    public SettingsDatabase dbSettings;
 
     TextView cyptoName;
     EditText quantity;
@@ -65,20 +66,25 @@ public class Trade extends AppCompatActivity {
     private void buy(){
         String temp = quantity.getText().toString();
         int quant = Integer.parseInt(temp);
-        int bPrice = 0;
+        int bPrice = 0;//buy price
+        bPrice =
         String name = cyptoName.getText().toString();
         String time = "";
         String date = "";
 
         //get buying power to see if play has enough funds
-        Vector<Double> PortValues =  dbhistory.getPortfolioValue();
+        Vector<Double> temp =  dbSettings.getBuyingPower();
+        double buyPower = temp.get(0);
 
-        if( PortValues.get(0) < (quant * bPrice)){
+        if( buyPower < (quant * bPrice)){
             toaster("You do not have enough buying power to execute this trade", 1500);
             return;
         }
 
         //update portfolio value
+        buyPower -= (quant * bPrice);
+        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
+
 
         //gets time and date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
