@@ -88,7 +88,7 @@ try {
         mCoinData[i][10] = CHANGEPCTDAY;
         mCoinData[i][11] = CHANGEPCT24HOUR;
         mCoinData[i][12] = CHANGE24HOUR;
-        mCoinData[i][13] = mCoinNames;
+        mCoinData[i][13] = mCoinNames[i];
 
     }
     }catch(Exception e) {
