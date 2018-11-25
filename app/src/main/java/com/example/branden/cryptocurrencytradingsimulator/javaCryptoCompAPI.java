@@ -20,7 +20,7 @@ public class javaCryptoCompAPI {
             "ARDR", "XUC", "BNT", "DGD", "KNC", "MAID", "SALT", "HSR", "ARK", "STEEM",
             "PIVX", "MONA", "DCN", "ZEN", "SUB", "VERI", "NXT", "SYS", "GAS"
     };
-    private static String[] mCoinNames = { "Bitcoin","Ethereum", "Ripple", "Bitcoin Cash", "Stellar", "EOS", "Litecoin", "Tether", "Cardano", "Monero", "Tronix", "IOTA", "DisgitalCash", "NEO", "Ethereum Classic", "0x", "NEM", "ZCash", "VeChain", "Dogecoin", "OmisGo", "Bitcoin Gold", "QTUM",
+    private static String[] mCoinNames = { "Bitcoin","Ethereum", "Ripple", "Bitcoin Cash", "Stellar", "EOS", "Litecoin", "Tether", "Cardano", "Monero", "Tronix", "IOTA", "DigitalCash", "NEO", "Ethereum Classic", "0x", "NEM", "ZCash", "VeChain", "Dogecoin", "OmisGo", "Bitcoin Gold", "QTUM",
 	    "Aeternity", "ChainLink", "Basic Attention Token", "Decred", "Nano", "Lisk", "ICON Project", "DigiByte", "Bitshares", "Status Network Token", "Saicoin", "Quoine Liquid", "Verge", "Waltonchain", "Gnosis", "Waves", "Populous", "Metaverse", "Golem Netwok Token", "FunFair", "Loopring", "Stori", "Komodo", "Stratis", "Civic", "Augur", "TenX",
 	     "Ardor", "Exchange Union", "Bancor Network Token", "Digix DAO", "Kyber Network", "MaidSafe Coin", "Salt Lending", "Hshare", "ARK", "Steem", "Private Instant Verified Transation", "MonaCoin", "Dentacoin", "ZenCash", "Substratum Network", "Veritaseum", "Nxt", "SysCoin", "Gas"      
 	    };
@@ -88,7 +88,7 @@ try {
         mCoinData[i][10] = CHANGEPCTDAY;
         mCoinData[i][11] = CHANGEPCT24HOUR;
         mCoinData[i][12] = CHANGE24HOUR;
-        mCoinData[i][13] = mCoinNames;
+        mCoinData[i][13] = mCoinNames[i];
 
     }
     }catch(Exception e) {
@@ -300,7 +300,7 @@ try {
     static String[] search(String coin) {
         String coinInfo[] = new String[14];
         for(int i = 0; i<69; i++){
-            if(coin == mCoinData[i][13]){
+            if(coin == mCoinData[i][13] || coin == mCoinData[i][0]){
                 for(int j=0; j<14; j++){
                     coinInfo[j] = mCoinData[i][j];
                 }
