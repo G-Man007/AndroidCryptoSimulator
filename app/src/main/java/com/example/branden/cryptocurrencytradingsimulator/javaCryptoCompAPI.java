@@ -20,7 +20,7 @@ public class javaCryptoCompAPI {
             "ARDR", "XUC", "BNT", "DGD", "KNC", "MAID", "SALT", "HSR", "ARK", "STEEM",
             "PIVX", "MONA", "DCN", "ZEN", "SUB", "VERI", "NXT", "SYS", "GAS"
     };
-    private static String[] mCoinNames = { "Bitcoin","Ethereum", "Ripple", "Bitcoin Cash", "Stellar", "EOS", "Litecoin", "Tether", "Cardano", "Monero", "Tronix", "IOTA", "DisgitalCash", "NEO", "Ethereum Classic", "0x", "NEM", "ZCash", "VeChain", "Dogecoin", "OmisGo", "Bitcoin Gold", "QTUM",
+    private static String[] mCoinNames = { "Bitcoin","Ethereum", "Ripple", "Bitcoin Cash", "Stellar", "EOS", "Litecoin", "Tether", "Cardano", "Monero", "Tronix", "IOTA", "DigitalCash", "NEO", "Ethereum Classic", "0x", "NEM", "ZCash", "VeChain", "Dogecoin", "OmisGo", "Bitcoin Gold", "QTUM",
 	    "Aeternity", "ChainLink", "Basic Attention Token", "Decred", "Nano", "Lisk", "ICON Project", "DigiByte", "Bitshares", "Status Network Token", "Saicoin", "Quoine Liquid", "Verge", "Waltonchain", "Gnosis", "Waves", "Populous", "Metaverse", "Golem Netwok Token", "FunFair", "Loopring", "Stori", "Komodo", "Stratis", "Civic", "Augur", "TenX",
 	     "Ardor", "Exchange Union", "Bancor Network Token", "Digix DAO", "Kyber Network", "MaidSafe Coin", "Salt Lending", "Hshare", "ARK", "Steem", "Private Instant Verified Transation", "MonaCoin", "Dentacoin", "ZenCash", "Substratum Network", "Veritaseum", "Nxt", "SysCoin", "Gas"      
 	    };
