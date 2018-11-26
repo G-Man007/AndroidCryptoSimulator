@@ -9,7 +9,8 @@ import org.json.JSONObject;
 
 public class javaCryptoCompAPI {
 
-  private static String currencyChosen = "USD";
+
+  public static String currencyChosen = "USD";
   private static String[][] mCoinData = new String[69][14];
   private static String[] mCoinShort = {
     "BTC", "ETH", "XRP", "BCH", "XLM", "EOS", "LTC", "USDT", "ADA", "XMR",
@@ -22,7 +23,7 @@ public class javaCryptoCompAPI {
   };
   private static String[] mCoinNames = { "Bitcoin","Ethereum", "Ripple", "Bitcoin Cash", "Stellar", "EOS", "Litecoin", "Tether", "Cardano", "Monero", "Tronix", "IOTA", "DigitalCash", "NEO", "Ethereum Classic", "0x", "NEM", "ZCash", "VeChain", "Dogecoin", "OmisGo", "Bitcoin Gold", "QTUM",
   "Aeternity", "ChainLink", "Basic Attention Token", "Decred", "Nano", "Lisk", "ICON Project", "DigiByte", "Bitshares", "Status Network Token", "Saicoin", "Quoine Liquid", "Verge", "Waltonchain", "Gnosis", "Waves", "Populous", "Metaverse", "Golem Netwok Token", "FunFair", "Loopring", "Stori", "Komodo", "Stratis", "Civic", "Augur", "TenX",
-  "Ardor", "Exchange Union", "Bancor Network Token", "Digix DAO", "Kyber Network", "MaidSafe Coin", "Salt Lending", "Hshare", "ARK", "Steem", "Private Instant Verified Transation", "MonaCoin", "Dentacoin", "ZenCash", "Substratum Network", "Veritaseum", "Nxt", "SysCoin", "Gas"
+  "Ardor", "Exchange Union", "Bancor Network Token", "Digix DAO", "Kyber Network", "MaidSafe Coin", "Salt Lending", "Hshare", "ARK", "Steem", "Private Instant Verified Transaction", "MonaCoin", "Dentacoin", "ZenCash", "Substratum Network", "Veritaseum", "Nxt", "SysCoin", "Gas"
 };
 
 /**
@@ -152,9 +153,8 @@ static String[][] updatePrices(){
 * @ccs.Pre-condition called when update is requested
 * @ccs.Post-condition Updates coin prices to real time
 *
-* @return mCoinData with freshly updated values
 * */
-static String[][] updateCoinData(){
+static void updateCoinData(){
 
   String coinPrices = null;
   try {
@@ -219,8 +219,6 @@ static String[][] updateCoinData(){
   } catch(Exception e) {
     System.out.println(e);
   }
-
-  return(mCoinData);
 }
 
 /**
