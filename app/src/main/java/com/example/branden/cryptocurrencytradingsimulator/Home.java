@@ -66,7 +66,7 @@ public class Home extends AppCompatActivity {
     }
 
     /**
-     * configureNavigationButtons() sets each of the Button XML elements click listeners to their corresponding button
+     * Sets each of the Button XML elements click listeners to their corresponding button
      * in which they will startActivity the proper activity with the FLAG_ACTIVITY_CLEAR_TOP flag in order to clear
      * the stack down to any previous instances of the desired activity.
      *
@@ -92,7 +92,7 @@ public class Home extends AppCompatActivity {
     }
 
     /**
-     * configureUpdateBtn() sets the update button to call the appropriate function defined in {@link javaCryptoCompAPI}
+     * Sets the update button to call the appropriate function defined in {@link javaCryptoCompAPI}
      * that updates the coin information.
      *
      * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.

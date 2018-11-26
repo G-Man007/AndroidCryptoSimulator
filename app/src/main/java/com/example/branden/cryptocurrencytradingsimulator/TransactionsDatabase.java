@@ -18,7 +18,7 @@ public class TransactionsDatabase extends DatabaseHelper {
     }
 
     /**
-     * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
+     * The default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity.
      *
      * @ccs.Pre-condition
@@ -34,10 +34,11 @@ public class TransactionsDatabase extends DatabaseHelper {
         sqLiteDatabase.execSQL(createTable);
     }
 
-    /**
-     * @return results contains price data
-     * @ccs.Pre-condition Function can be called at any time updated prices are wanted for all of the coins
-     * @ccs.Post-condition Will initialize a base data structure to pull from
+    /** Returns the names of the crypto currency.
+     *
+     * @return results contains the names of the crypto currency
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
      **/
     public Vector<String> getNames() {
         Vector<String> results = new Vector<>();
@@ -55,7 +56,12 @@ public class TransactionsDatabase extends DatabaseHelper {
         data.close();
         return results;
     }
-
+    /** Returns whether the user is buying or selling the crypto currency.
+     *
+     * @return results contains either buy or sell
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Integer> getTransacationsType() {
         Vector<Integer> results = new Vector<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -72,7 +78,12 @@ public class TransactionsDatabase extends DatabaseHelper {
         data.close();
         return results;
     }
-
+    /**getQuantity is a getter that returns an integer of the number of coins that the user has.
+     *
+     * @return results contains quantity
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Integer> getQuantity() {
         Vector<Integer> results = new Vector<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -89,7 +100,12 @@ public class TransactionsDatabase extends DatabaseHelper {
         data.close();
         return results;
     }
-
+    /**getPrice is a getter that returns the price of the crypto.
+     *
+     * @return results contains price of the crypto
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Double> getPrice() {
         Vector<Double> results = new Vector<>();
         SQLiteDatabase db = this.getWritableDatabase();

@@ -33,6 +33,12 @@ public class PortfolioDatabase extends DatabaseHelper {
         sqLiteDatabase.execSQL(createTable);
     }
 
+    /**A getter that returns the date and time of when a crypto was bought.
+     *
+     * @return results contains an integer representing the number of crypto currency
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Integer> getQuantity() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -50,6 +56,12 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
+    /**getBuyPrice() is a getter that returns the price at which the crypto was bought
+     *
+     * @return results contains the price
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Integer> getBuyPrice() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -67,6 +79,12 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
+    /**A getter that returns the time that the user bought the crypto currency
+     *
+     * @return results contains the date
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<String> getBuyTimes() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -84,6 +102,12 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
+    /**getDate() is a getter that returns the date and time of when a crypto was bought.
+     *
+     * @return results contains date
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<String> getBuyDates() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -101,6 +125,12 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
+    /**A getter that returns the date and time of when a crypto was bought.
+     *
+     * @return results contains name of crypto currency
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<String> getName() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
