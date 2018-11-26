@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import java.util.Vector;
 
 public class PortfolioDatabase extends DatabaseHelper {
@@ -32,13 +33,13 @@ public class PortfolioDatabase extends DatabaseHelper {
         sqLiteDatabase.execSQL(createTable);
     }
 
-    public Vector<Integer> getQuantity(){
+    public Vector<Integer> getQuantity() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select "+ PTCol1 + " From " + MDatabasename;
+        String query = "Select " + PTCol1 + " From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getInt(index));
@@ -49,13 +50,13 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
-    public Vector<Integer> getBuyPrice(){
+    public Vector<Integer> getBuyPrice() {
         Vector<Integer> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select "+ PTCol2 + " From " + MDatabasename;
+        String query = "Select " + PTCol2 + " From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getInt(index));
@@ -66,13 +67,13 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
-    public Vector<String> getBuyTimes(){
+    public Vector<String> getBuyTimes() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select "+ PTCol3 + " From " + MDatabasename;
+        String query = "Select " + PTCol3 + " From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getString(index));
@@ -83,13 +84,13 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
-    public Vector<String> getBuyDates(){
+    public Vector<String> getBuyDates() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select "+ PTCol4 + " From " + MDatabasename;
+        String query = "Select " + PTCol4 + " From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getString(index));
@@ -100,13 +101,13 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
-    public Vector<String> getName(){
+    public Vector<String> getName() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select "+ PTCol5 + " From " + MDatabasename;
+        String query = "Select " + PTCol5 + " From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
 
-        int index =0;
+        int index = 0;
         if (data.moveToFirst()) {
             do {
                 results.add(data.getString(index));
@@ -117,7 +118,7 @@ public class PortfolioDatabase extends DatabaseHelper {
         return results;
     }
 
-    public void removeRow(int rowNum){
+    public void removeRow(int rowNum) {
 
     }
 }
