@@ -30,6 +30,12 @@ public class PortfolioHistoryDatabase extends DatabaseHelper {
         sqLiteDatabase.execSQL(createTable);
     }
 
+    /**A getter that returns the date and time of when a crypto currency was bought.
+     *
+     * @return results contains date
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<String> getDate() {
         Vector<String> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -47,6 +53,12 @@ public class PortfolioHistoryDatabase extends DatabaseHelper {
         return results;
     }
 
+    /** A getter that returns the date and time of when a crypto was bought.
+     *
+     * @return results contains date
+     * @ccs.Pre-condition None
+     * @ccs.Post-condition None
+     **/
     public Vector<Double> getPortfolioValue() {
         Vector<Double> results = new Vector();
         SQLiteDatabase db = this.getWritableDatabase();

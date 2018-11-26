@@ -38,7 +38,7 @@ public class Trade extends AppCompatActivity {
     private EditText quantity;
 
     /**
-     * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
+     * The default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Trade onCreate() function creates the graphs, sets the view to the
      * correct XML layout, and calls {@link #configureNavigationButtons()}.
      *
@@ -59,7 +59,7 @@ public class Trade extends AppCompatActivity {
     }
 
     /**
-     * configureGraph() creates the graph showing the information for the coins price of Today and the past six days.
+     * Creates the graph showing the information for the coins price of Today and the past six days.
      *
      * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
      * @ccs.Post-condition Graph is created related to the clicked on coin.
@@ -106,6 +106,13 @@ public class Trade extends AppCompatActivity {
         graph.getGridLabelRenderer().setHumanRounding(false);
     }
 
+    /**
+     * Takes the current price of the crypto and stores it in the database as a transaction
+     *
+     * @ccs.Pre-condition {@link #onCreate(Bundle)} is called. buyPower is needed to be larger than the amount
+     *                     that is being bought.
+     * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void buy() {
         String temp = quantity.getText().toString();
@@ -176,6 +183,13 @@ public class Trade extends AppCompatActivity {
         toaster("Your trade was successful!", 1500);
     }
 
+    /**
+     * Removes the amount from the portfolio and adds the quantity multiplied by its sell value
+     * and adds it onto the user's buying power
+     *
+     * @ccs.Pre-condition {@link #onCreate(Bundle)} is called. The user has the necessary amount owned.
+     * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sell() {
         String temp = quantity.getText().toString();
@@ -257,7 +271,7 @@ public class Trade extends AppCompatActivity {
     }
 
     /**
-     * configureNavigationButtons() sets each of the Button XML elements click listeners to their corresponding button
+     * Sets each of the Button XML elements click listeners to their corresponding button
      * in which they will startActivity the proper activity with the FLAG_ACTIVITY_CLEAR_TOP flag in order to clear
      * the stack down to any previous instances of the desired activity.
      *
@@ -289,7 +303,13 @@ public class Trade extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Takes in a string and an integer and outputs a display that lasts for how long the integer is
+     * based on milliseconds.
+     *
+     * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
+     * @ccs.Post-condition A display will appear with the inputted message and lasts for the inputted length.
+     */
     private void toaster(String message, int length) {
 
         final Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
