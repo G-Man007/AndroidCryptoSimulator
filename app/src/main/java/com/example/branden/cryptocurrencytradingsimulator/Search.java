@@ -9,9 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.GraphView;
+import java.util.Arrays;
 
 /**
  * Creates the Search activity that is displayed to the user. Search just has a scrollable box and a text field
@@ -25,15 +23,20 @@ public class Search extends AppCompatActivity {
     /**
      * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Search onCreate() function sets the view to the correct XML
-     * layout, and calls {@link #configureNavigationButtons()}.
+     * layout, populates a listView from the XML with the string array taken from javaCryptoCompAPI and links to
+     * Trade and passes the string that was interacted with. Navigation bar calls
+     * {@link #configureNavigationButtons()}.
      *
      * @ccs.Pre-condition The navigation button to launch Search.
-     * @ccs.Post-condition the textview is set, and the navigation buttons are configured.
+     * @ccs.Post-condition the textview is set, and the navigation buttons are configured and the list is
+     *                     created and displayed.
      * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Arrays.sort(cryptoName);
 
         ListView list = (ListView)findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, cryptoName);
