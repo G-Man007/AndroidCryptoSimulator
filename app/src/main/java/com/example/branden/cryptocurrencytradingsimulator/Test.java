@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.nameConversion;
 
 /**
  * Creates the Settings activity that is displayed to the user. Settings is currently blank as it is lower priority
@@ -25,6 +28,24 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        TextView test1 = findViewById(R.id.Test1);
+        test1.setText("nameConversion converts coin name to abberviation");
+        TextView test1Result = findViewById(R.id.Test1Result);
+
+        if(nameConversion("Bitcoin").equals("BTC")){
+            test1Result.setText("PASSED");
+        } else{
+            test1Result.setText("FAILED");
+        }
+
+        TextView test2 = findViewById(R.id.Test2);
+        test2.setText("nameConversion returns 'ERROR' on bad coin input");
+        TextView test2Result = findViewById(R.id.Test2Result);
+        if(nameConversion("TestingName").equals("ERROR")) {
+            test2Result.setText("PASSED");
+        } else{
+            test2Result.setText("FAILED");
+        }
         configureNavigationButtons();
     }
 
