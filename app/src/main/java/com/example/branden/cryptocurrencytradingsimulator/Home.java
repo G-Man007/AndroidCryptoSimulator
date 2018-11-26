@@ -34,7 +34,6 @@ public class Home extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
-
     initializeCoinData(currencyChosen);
     configureUpdateBtn();
     configureGraph();
@@ -99,20 +98,4 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-
-  /*private void getTrades(){
-  Cursor data = mDataBase.getData();
-
-  ArrayList<String> listOfData = new ArrayList<String>;
-
-  //gets bought cypto name
-  while(data.moveToNext()){
-  //gets the data from the first colume
-  //adds it to arrayList
-  listOfData.add(data.getString(1));
-}
-
-//get curent price for owned cyptos
-
-}*/
 }

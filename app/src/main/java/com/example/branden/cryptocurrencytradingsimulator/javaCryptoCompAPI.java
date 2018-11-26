@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 public class javaCryptoCompAPI {
 
+
   public static String currencyChosen = "USD";
   private static String[][] mCoinData = new String[69][14];
   private static String[] mCoinShort = {
