@@ -232,58 +232,50 @@ public class javaCryptoCompAPI {
      * @ccs.Pre-condition A trade activity is started.
      * @ccs.Post-condition No post condition.
      **/
-    static double[] weeklyPriceInfo(String coin) {
-        double[] priceHolder = new double[7];
-        String urlCoin = nameConversion(coin);
-        String historical = null;
-        String usdPrice;
-        double price = 0;
-        Instant instant = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            instant = Instant.now();
-        }
-        long currentTimeStamp = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentTimeStamp = instant.toEpochMilli();
-        }
-        String time = Long.toString(currentTimeStamp);
-        String previous = time.substring(0, time.length() - 3);
-        long previousDay = Long.parseLong(previous);
+    static double[] weeklyPriceInfo(String coin){
+	   String urlCoin = nameConversion(coin);
+	   double[] priceHolder = new double[7];
+	   String historical = null;
+	   String usdPrice = null;
+	   double price = 0;
+	   Instant instant = Instant.now();
+	   long currentTimeStamp = instant.toEpochMilli();
+	   String time = Long.toString(currentTimeStamp);
+	   String previous = time.substring(0, time.length() - 3);
+	   long previousDay = Long.parseLong(previous);
+	   
+	   
+	   for(int i = 0; i < 7; i++) {
+	   try {
+		 	String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym="+urlCoin+"&tsyms="+currencyChosen+"&ts="+previousDay+"&extraParams=cryptoSimulatorSchoolProject";
+		   	URL obj = new URL(url);
+		 	HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+   
+		 	BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		 	String inputLine;
+		 	StringBuffer coinData;
+		 	coinData = new StringBuffer();
+		 
+		 	while ((inputLine = in.readLine()) != null) {
+			 	coinData.append(inputLine);
+		 	} in.close();
+		 	historical = coinData.toString();
+	 		} catch(Exception e) {
+	 		System.out.println(e);
+	 		}
+	   
+	   JSONObject history = new JSONObject(historical);
+	   usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
+	   price = Double.parseDouble(usdPrice);
+	   
+	   priceHolder[i]=price;
+	   System.out.println(priceHolder[i]);
+	   previousDay = previousDay - 86400;
+	   } 
+	   
+	   return priceHolder;
+   } 
 
-        for (int i = 0; i < 7; i++) {
-            try {
-                String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym=" + urlCoin + "&tsyms=" + currencyChosen + "&ts=" + previousDay + "&extraParams=cryptoSimulatorSchoolProject";
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer coinData;
-                coinData = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) {
-                    coinData.append(inputLine);
-                }
-                in.close();
-                historical = coinData.toString();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            try {
-                JSONObject history = new JSONObject(historical);
-                usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
-                price = Double.parseDouble(usdPrice);
-                priceHolder[i] = price;
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            previousDay = previousDay - 86400;
-        }
-
-        return priceHolder;
-    }
 
     /**
      * Function used in {@link Search} to populate a list of used coins
