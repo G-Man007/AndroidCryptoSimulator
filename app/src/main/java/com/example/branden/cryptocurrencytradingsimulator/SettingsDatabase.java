@@ -3,6 +3,7 @@ package com.example.branden.cryptocurrencytradingsimulator;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.Cursor;
+
 import java.util.Vector;
 
 public class SettingsDatabase extends DatabaseHelper {
