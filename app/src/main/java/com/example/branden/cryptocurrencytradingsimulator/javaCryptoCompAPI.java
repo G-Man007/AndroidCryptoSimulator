@@ -2,11 +2,13 @@ package com.example.branden.cryptocurrencytradingsimulator;
 //imports needed to connect to API
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.time.Instant;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class javaCryptoCompAPI {
@@ -54,6 +56,7 @@ public class javaCryptoCompAPI {
                 coinData.append(inputLine);
             }
             in.close();
+            con.disconnect();
             coinPrices = coinData.toString();
 
         } catch (Exception e) {
@@ -64,7 +67,7 @@ public class javaCryptoCompAPI {
 
             for (int i = 0; i < 69; i++) {
 
-                JSONObject raw = coins.getJSONObject("RAW").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
+                JSONObject raw = coins.getJSONObject("DISPLAY").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
 
                 String PRICE = raw.get("PRICE").toString();
                 String LASTUPDATE = raw.get("LASTUPDATE").toString();
@@ -128,6 +131,7 @@ public class javaCryptoCompAPI {
                 coinData.append(inputLine);
             }
             in.close();
+            con.disconnect();
             coinPrices = coinData.toString();
 
         } catch (Exception e) {
@@ -227,55 +231,38 @@ public class javaCryptoCompAPI {
      * This function is called in {@link Search} when a user wants to search for
      * a certain coins statistics
      *
-     * @param coin is a string used for searching historical data
-     * @return array filled with coin statistics
-     * @ccs.Pre-condition Passes in
-     * @ccs.Post-condition UI has full access to a coins stats
+     * @param coin is a string that is the name of the coin whose data is sought.
+     * @return array with past 7 days of pricing information.
+     * @ccs.Pre-condition A trade activity is started.
+     * @ccs.Post-condition No post condition.
      **/
-    static double[] priceTimeStamp(String coin) {
-        double[] priceHolder = new double[5];
-        String historical = null;
+    static double[] weeklyPriceInfo(String coin) {
+        String urlCoin = nameConversion(coin);
+        double[] priceHolder = new double[7];
+        String usdPrice = null;
+        double price = 0;
+        Instant instant = Instant.now();
+        long currentTimeStamp = instant.toEpochMilli();
+        String time = Long.toString(currentTimeStamp);
+        String previous = time.substring(0, time.length() - 3);
+        long previousDay = Long.parseLong(previous);
 
-        Instant instant = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            instant = Instant.now();
-        }
-        long currentTimeStamp = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentTimeStamp = instant.toEpochMilli();
-        }
+        for (int i = 0; i < 7; i++) {
+            try {
+                String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym=" + urlCoin + "&tsyms=" + currencyChosen + "&ts=" + previousDay + "&extraParams=cryptoSimulatorSchoolProject";
+                JSONObject history = getJSONObjectFromURL(url);
+                usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
+                price = Double.parseDouble(usdPrice);
 
-        long previousDay = currentTimeStamp - 86400;
-
-        try {
-            String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym=" + coin + "&tsyms=USD&ts=" + currentTimeStamp + "&extraParams=cryptoSimulatorSchoolProject";
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer coinData;
-            coinData = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                coinData.append(inputLine);
+                priceHolder[i] = price;
+                System.out.println(priceHolder[i]);
+                previousDay = previousDay - 86400;
+            } catch(IOException e) {
+                e.printStackTrace();
+            } catch(JSONException e){
+                e.printStackTrace();
             }
-            in.close();
-            historical = coinData.toString();
-        } catch (Exception e) {
-            System.out.println(e);
         }
-
-        try {
-            JSONObject history = new JSONObject(historical);
-            String usdPrice = history.getJSONObject(coin).get(currencyChosen).toString();
-
-            double price = Double.parseDouble(usdPrice);
-            priceHolder[0] = price;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
         return priceHolder;
     }
 
@@ -301,14 +288,54 @@ public class javaCryptoCompAPI {
     static String[] search(String coin) {
         String coinInfo[] = new String[14];
         for (int i = 0; i < 69; i++) {
-            if (coin == mCoinData[i][13] || coin == mCoinData[i][0]) {
-                for (int j = 0; j < 14; j++) {
-                    coinInfo[j] = mCoinData[i][j];
-                }
+            if (coin.equals(mCoinData[i][13]) || coin.equals(mCoinData[i][0])) {
+                System.arraycopy(mCoinData[i], 0, coinInfo, 0, 14);
                 break;
             }
         }
         return coinInfo;
     }
 
+    /**
+     * Function used to convert from full coin names to coin abbreviations to be used in the API URL
+     *
+     * @param coin string to search for
+     * @return returns a string containing the abbreviation of the passed in coin
+     * @ccs.Pre-condition A coins information is being accessed through the API
+     * @ccs.Post-condition No post condition
+     */
+    static String nameConversion(String coin) {
+        for (int i = 0; i < 69; i++) {
+            if (mCoinNames[i].equals(coin)) {
+                return(mCoinShort[i]);
+            }
+        }
+        return("ERROR");
+    }
+
+    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+        HttpURLConnection urlConnection = null;
+        URL url = new URL(urlString);
+        urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setReadTimeout(10000 /* milliseconds */);
+        urlConnection.setConnectTimeout(15000 /* milliseconds */);
+        urlConnection.setDoOutput(true);
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        br.close();
+
+        String jsonString = sb.toString();
+        System.out.println("JSON: " + jsonString);
+        urlConnection.disconnect();
+
+        return new JSONObject(jsonString);
+    }
 }

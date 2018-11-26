@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.GraphView;
@@ -23,12 +22,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.weeklyPriceInfo;
+
 /**
  * Creates the Trade activity that is displayed to the user, currently displayed as a navigation button for
  * testing purposes but will be implemented as the default window for selecting a crypto-currency.
  */
 public class Trade extends AppCompatActivity {
-
     private TransactionsDatabase dbTransacation;
     private PortfolioDatabase dbPortfolio;
     private PortfolioHistoryDatabase dbhistory;
@@ -53,6 +53,29 @@ public class Trade extends AppCompatActivity {
         quantity = findViewById(R.id.etQuantity);
         String cryptoName = getIntent().getStringExtra("name");
         name.setText(cryptoName);
+
+        String[] tradeInfo = javaCryptoCompAPI.search(cryptoName);
+
+        TextView value = findViewById(R.id.value);
+        value.setText(tradeInfo[1]);
+        TextView open = findViewById(R.id.open);
+        open.setText(tradeInfo[3]);
+        TextView low = findViewById(R.id.low);
+        low.setText(tradeInfo[5]);
+        TextView high = findViewById(R.id.high);
+        high.setText(tradeInfo[4]);
+        TextView mktCap = findViewById(R.id.mktCap);
+        mktCap.setText(tradeInfo[6]);
+        TextView supply = findViewById(R.id.supply);
+        supply.setText(tradeInfo[7]);
+        TextView tVol = findViewById(R.id.tVol);
+        tVol.setText(tradeInfo[8]);
+        TextView fVol = findViewById(R.id.fVol);
+        fVol.setText(tradeInfo[9]);
+        TextView pctChng24 = findViewById(R.id.pctChng24);
+        pctChng24.setText(tradeInfo[11]);
+        TextView chng24hr = findViewById(R.id.chng24hr);
+        chng24hr.setText(tradeInfo[12]);
 
         configureGraph(cryptoName);
         configureNavigationButtons();
@@ -82,15 +105,20 @@ public class Trade extends AppCompatActivity {
         calendar.add(Calendar.DATE, -1);
         Date d7 = calendar.getTime();
 
+        double[] prices = weeklyPriceInfo(currency);
+
+        TextView currentPrice = findViewById(R.id.value);
+        String currentValue = Double.toString(prices[6]);
+        currentPrice.setText('$' + currentValue);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(d7, 7),
-                new DataPoint(d6, 6),
-                new DataPoint(d5, 5),
-                new DataPoint(d4, 4),
-                new DataPoint(d3, 3),
-                new DataPoint(d2, 2),
-                new DataPoint(d1, 1)
+                new DataPoint(d7, prices[0]),
+                new DataPoint(d6, prices[1]),
+                new DataPoint(d5, prices[2]),
+                new DataPoint(d4, prices[3]),
+                new DataPoint(d3, prices[4]),
+                new DataPoint(d2, prices[5]),
+                new DataPoint(d1, prices[6])
         });
         graph.addSeries(series);
 
