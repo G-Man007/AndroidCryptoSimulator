@@ -22,6 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.weeklyPriceInfo;
+
 /**
  * Creates the Trade activity that is displayed to the user, currently displayed as a navigation button for
  * testing purposes but will be implemented as the default window for selecting a crypto-currency.
@@ -81,15 +83,16 @@ public class Trade extends AppCompatActivity {
         calendar.add(Calendar.DATE, -1);
         Date d7 = calendar.getTime();
 
+        double[] prices = weeklyPriceInfo(currency);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(d7, 7),
-                new DataPoint(d6, 6),
-                new DataPoint(d5, 5),
-                new DataPoint(d4, 4),
-                new DataPoint(d3, 3),
-                new DataPoint(d2, 2),
-                new DataPoint(d1, 1)
+                new DataPoint(d7, prices[0]),
+                new DataPoint(d6, prices[1]),
+                new DataPoint(d5, prices[2]),
+                new DataPoint(d4, prices[3]),
+                new DataPoint(d3, prices[4]),
+                new DataPoint(d2, prices[5]),
+                new DataPoint(d1, prices[6])
         });
         graph.addSeries(series);
 

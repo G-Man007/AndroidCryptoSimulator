@@ -227,62 +227,64 @@ public class javaCryptoCompAPI {
      * This function is called in {@link Search} when a user wants to search for
      * a certain coins statistics
      *
-     * @param coin is a string used for searching historical data
-     * @return array filled with coin statistics
-     * @ccs.Pre-condition Passes in
-     * @ccs.Post-condition UI has full access to a coins stats
+     * @param coin is a string that is the name of the coin whose data is sought.
+     * @return array with past 7 days of pricing information.
+     * @ccs.Pre-condition A trade activity is started.
+     * @ccs.Post-condition No post condition.
      **/
-  static double[] priceTimeStamp(String coin){
-  double[] priceHolder = new double[7];
-  String historical = null;
-  String usdPrice = null;
-  double price = 0;
-  Instant instant = null;
-  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-    instant = Instant.now();
-  }
-  long currentTimeStamp = 0;
-  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-    currentTimeStamp = instant.toEpochMilli();
-  }
-  String time = Long.toString(currentTimeStamp);
-  String previous = time.substring(0, time.length() - 3);
-  long previousDay = Long.parseLong(previous);
+    static double[] weeklyPriceInfo(String coin) {
+        double[] priceHolder = new double[7];
+        String urlCoin = nameConversion(coin);
+        String historical = null;
+        String usdPrice;
+        double price = 0;
+        Instant instant = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            instant = Instant.now();
+        }
+        long currentTimeStamp = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentTimeStamp = instant.toEpochMilli();
+        }
+        String time = Long.toString(currentTimeStamp);
+        String previous = time.substring(0, time.length() - 3);
+        long previousDay = Long.parseLong(previous);
 
-  for(int i = 0; i < 7; i++) {
-    try {
-      String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym="+coin+"&tsyms="+currencyChosen+"&ts="+previousDay+"&extraParams=cryptoSimulatorSchoolProject";
-      URL obj = new URL(url);
-      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        for (int i = 0; i < 7; i++) {
+            try {
+                String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym=" + urlCoin + "&tsyms=" + currencyChosen + "&ts=" + previousDay + "&extraParams=cryptoSimulatorSchoolProject";
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-      String inputLine;
-      StringBuffer coinData;
-      coinData = new StringBuffer();
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer coinData;
+                coinData = new StringBuffer();
 
-      while ((inputLine = in.readLine()) != null) {
-        coinData.append(inputLine);
-      } in.close();
-      historical = coinData.toString();
-    } catch(Exception e) {
-      System.out.println(e);
+                while ((inputLine = in.readLine()) != null) {
+                    coinData.append(inputLine);
+                }
+                in.close();
+                historical = coinData.toString();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            try {
+                JSONObject history = new JSONObject(historical);
+                usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
+                price = Double.parseDouble(usdPrice);
+                priceHolder[i] = price;
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            previousDay = previousDay - 86400;
+        }
+
+        return priceHolder;
     }
 
-    try{
-      JSONObject history = new JSONObject(historical);
-      usdPrice = history.getJSONObject(coin).get(currencyChosen).toString();
-
-    } catch(Exception e) {
-      System.out.println(e);
-    }
-
-    price = Double.parseDouble(usdPrice);
-    priceHolder[i]=price;
-    previousDay = previousDay - 86400;
-  }
-
-  return priceHolder;
-}
     /**
      * Function used in {@link Search} to populate a list of used coins
      *
@@ -315,4 +317,23 @@ public class javaCryptoCompAPI {
         return coinInfo;
     }
 
+    /**
+     * Function used to convert from full coin names to coin abbreviations to be used in the API URL
+     *
+     * @ccs.Pre-condition A coins information is being accessed through the API
+     * @ccs.Post-condition No post condition
+     *
+     * @param coin string to search for
+     * @return returns a string containing the abbreviation of the passed in coin
+
+     */
+    static String nameConversion(String coin) {
+        int index = 0;
+        for (int i = 0; i < 69; i++) {
+            if (mCoinNames[i] == coin) {
+                index = i;
+            }
+        }
+        return(mCoinShort[index]);
+    }
 }
