@@ -232,53 +232,57 @@ public class javaCryptoCompAPI {
      * @ccs.Pre-condition Passes in
      * @ccs.Post-condition UI has full access to a coins stats
      **/
-    static double[] priceTimeStamp(String coin) {
-        double[] priceHolder = new double[5];
-        String historical = null;
+  static double[] priceTimeStamp(String coin){
+  double[] priceHolder = new double[7];
+  String historical = null;
+  String usdPrice = null;
+  double price = 0;
+  Instant instant = null;
+  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+    instant = Instant.now();
+  }
+  long currentTimeStamp = 0;
+  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+    currentTimeStamp = instant.toEpochMilli();
+  }
+  String time = Long.toString(currentTimeStamp);
+  String previous = time.substring(0, time.length() - 3);
+  long previousDay = Long.parseLong(previous);
 
-        Instant instant = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            instant = Instant.now();
-        }
-        long currentTimeStamp = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentTimeStamp = instant.toEpochMilli();
-        }
+  for(int i = 0; i < 7; i++) {
+    try {
+      String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym="+coin+"&tsyms="+currencyChosen+"&ts="+previousDay+"&extraParams=cryptoSimulatorSchoolProject";
+      URL obj = new URL(url);
+      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        long previousDay = currentTimeStamp - 86400;
+      BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+      String inputLine;
+      StringBuffer coinData;
+      coinData = new StringBuffer();
 
-        try {
-            String url = "https://min-api.cryptocompare.com/data/pricehistorical?fsym=" + coin + "&tsyms=USD&ts=" + currentTimeStamp + "&extraParams=cryptoSimulatorSchoolProject";
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer coinData;
-            coinData = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                coinData.append(inputLine);
-            }
-            in.close();
-            historical = coinData.toString();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try {
-            JSONObject history = new JSONObject(historical);
-            String usdPrice = history.getJSONObject(coin).get(currencyChosen).toString();
-
-            double price = Double.parseDouble(usdPrice);
-            priceHolder[0] = price;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return priceHolder;
+      while ((inputLine = in.readLine()) != null) {
+        coinData.append(inputLine);
+      } in.close();
+      historical = coinData.toString();
+    } catch(Exception e) {
+      System.out.println(e);
     }
 
+    try{
+      JSONObject history = new JSONObject(historical);
+      usdPrice = history.getJSONObject(coin).get(currencyChosen).toString();
+
+    } catch(Exception e) {
+      System.out.println(e);
+    }
+
+    price = Double.parseDouble(usdPrice);
+    priceHolder[i]=price;
+    previousDay = previousDay - 86400;
+  }
+
+  return priceHolder;
+}
     /**
      * Function used in {@link Search} to populate a list of used coins
      *
