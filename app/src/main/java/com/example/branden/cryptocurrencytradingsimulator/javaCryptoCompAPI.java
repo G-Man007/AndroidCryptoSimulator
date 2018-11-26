@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class javaCryptoCompAPI {
 
-  private static String currencyChosen = "USD";
+  public static String currencyChosen = "USD";
   private static String[][] mCoinData = new String[69][14];
   private static String[] mCoinShort = {
     "BTC", "ETH", "XRP", "BCH", "XLM", "EOS", "LTC", "USDT", "ADA", "XMR",
@@ -152,9 +152,8 @@ static String[][] updatePrices(){
 * @ccs.Pre-condition called when update is requested
 * @ccs.Post-condition Updates coin prices to real time
 *
-* @return mCoinData with freshly updated values
 * */
-static String[][] updateCoinData(){
+static void updateCoinData(){
 
   String coinPrices = null;
   try {
@@ -219,8 +218,6 @@ static String[][] updateCoinData(){
   } catch(Exception e) {
     System.out.println(e);
   }
-
-  return(mCoinData);
 }
 
 /**

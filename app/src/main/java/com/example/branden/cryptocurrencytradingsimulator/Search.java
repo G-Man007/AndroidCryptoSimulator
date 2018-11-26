@@ -19,7 +19,6 @@ import com.jjoe64.graphview.GraphView;
 **/
 public class Search extends AppCompatActivity {
 
-  private TextView mTextMessage;
   String[] cryptoName = javaCryptoCompAPI.getCoinNames();
 
   /**
@@ -48,7 +47,6 @@ public class Search extends AppCompatActivity {
       }
     });
 
-    mTextMessage = (TextView) findViewById(R.id.message);
     configureNavigationButtons();
   }
 

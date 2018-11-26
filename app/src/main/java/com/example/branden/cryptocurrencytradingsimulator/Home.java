@@ -12,13 +12,15 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.currencyChosen;
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.initializeCoinData;
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.updateCoinData;
+
 /**
 * Creates the Home activity that is displayed to the user on boot which houses the portfolio and graph related to
 * the portfolio.
 * */
 public class Home extends AppCompatActivity {
-
-  private TextView mTextMessage;
 
   /**
   * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
@@ -33,28 +35,33 @@ public class Home extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
-    GraphView graph = (GraphView) findViewById(R.id.homeGraph);
+    initializeCoinData(currencyChosen);
+    configureUpdateBtn();
+    configureGraph();
+    configureNavigationButtons();
+  }
+
+  private void configureGraph(){
+
+    GraphView graph = findViewById(R.id.homeGraph);
     StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
     graph.getGridLabelRenderer().setHumanRounding(false);
     BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-      new DataPoint(1, 802.20),
-      new DataPoint(2, 207.90),
-      new DataPoint(3, .46)
+            new DataPoint(1, 802.20),
+            new DataPoint(2, 207.90),
+            new DataPoint(3, .46)
     });
     graph.addSeries(series);
 
     LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(new DataPoint[] {
-      new DataPoint(1, 1010.56),
-      new DataPoint(2, 1010.56),
-      new DataPoint(3, 1010.56)
+            new DataPoint(1, 1010.56),
+            new DataPoint(2, 1010.56),
+            new DataPoint(3, 1010.56)
     });
     graph.addSeries(series2);
 
     staticLabelsFormatter.setHorizontalLabels(new String[]{ "CEFS","Ethereum", "Ripple"});
     graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-    mTextMessage = (TextView) findViewById(R.id.message);
-    configureNavigationButtons();
   }
 
   /**
@@ -66,7 +73,7 @@ public class Home extends AppCompatActivity {
   * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
   * */
   private void configureNavigationButtons(){
-    Button settingsButton = (Button) findViewById(R.id.settingsBtn);
+    Button settingsButton = findViewById(R.id.settingsBtn);
     settingsButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -74,7 +81,7 @@ public class Home extends AppCompatActivity {
       }
     });
 
-    Button searchButton = (Button) findViewById(R.id.searchBtn);
+    Button searchButton = findViewById(R.id.searchBtn);
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -82,6 +89,16 @@ public class Home extends AppCompatActivity {
       }
     });
   }
+
+    private void configureUpdateBtn(){
+        Button updateButton = findViewById(R.id.btnUpdate);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateCoinData();
+            }
+        });
+    }
 
   /*private void getTrades(){
   Cursor data = mDataBase.getData();

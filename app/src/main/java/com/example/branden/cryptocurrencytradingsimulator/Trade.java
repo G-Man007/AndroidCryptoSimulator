@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.GraphView;
@@ -17,6 +19,8 @@ import android.os.Handler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -45,21 +49,62 @@ public class Trade extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_trade);
-    cryptoName = findViewById(R.id.tvName);
+    TextView name = findViewById(R.id.name);
     quantity = findViewById(R.id.etQuantity);
+    String cryptoName = getIntent().getStringExtra("name");
+    name.setText(cryptoName);
 
-    GraphView graph = findViewById(R.id.tradeGraph);
-    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-            new DataPoint(0, 6),
-            new DataPoint(1, 3),
-            new DataPoint(2, 4),
-            new DataPoint(3, 4),
-            new DataPoint(4, 2)
-    });
-    graph.addSeries(series);
+    configureGraph(cryptoName);
     configureNavigationButtons();
   }
 
+    /**
+     * configureGraph() creates the graph showing the information for the coins price of Today and the past six days.
+     *
+     * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
+     * @ccs.Post-condition Graph is created related to the clicked on coin.
+     * */
+  private void configureGraph(String currency){
+      GraphView graph = findViewById(R.id.tradeGraph);
+
+      Calendar calendar = Calendar.getInstance();
+      Date d1 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d2 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d3 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d4 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d5 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d6 = calendar.getTime();
+      calendar.add(Calendar.DATE, -1);
+      Date d7 = calendar.getTime();
+
+
+      LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+              new DataPoint(d7, 7),
+              new DataPoint(d6, 6),
+              new DataPoint(d5, 5),
+              new DataPoint(d4, 4),
+              new DataPoint(d3, 3),
+              new DataPoint(d2, 2),
+              new DataPoint(d1, 1)
+      });
+      graph.addSeries(series);
+
+      graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(Trade.this));
+      graph.getGridLabelRenderer().setNumHorizontalLabels(7);
+      graph.getGridLabelRenderer().setHorizontalLabelsAngle(90);
+      graph.getGridLabelRenderer().setLabelsSpace(15);
+
+      graph.getViewport().setMinX(d7.getTime());
+      graph.getViewport().setMaxX(d1.getTime());
+      graph.getViewport().setXAxisBoundsManual(true);
+
+      graph.getGridLabelRenderer().setHumanRounding(false);
+  }
 
   @RequiresApi(api = Build.VERSION_CODES.O)
   private void buy(){
