@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
+import android.widget.TextView;
+||||||| merged common ancestors
+=======
 import android.widget.TextView;
 
 import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.nameConversion;
+>>>>>>> b77d59746e2ec400e7b92222fad6b087cf1d388e
 
 /**
  * Creates the Settings activity that is displayed to the user. Settings is currently blank as it is lower priority
@@ -27,6 +32,26 @@ public class Test extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        TextView test7 = findViewById(R.id.Test7);
+        test7.setText("initialize coin data");
+        TextView test7Result = findViewById(R.id.Test7Result);
+        String[][] initial = javaCryptoCompAPI.initializeCoinData("USD");
+        if(initial[0][0]=="BTC") {
+            test7Result.setText("PASSED");
+        }else{
+            test7Result.setText("FAILED");
+        }
+
+        TextView test8 = findViewById(R.id.Test8);
+        test7.setText("update coin data");
+        TextView test8Result = findViewById(R.id.Test8Result);
+        String[][] update = javaCryptoCompAPI.initializeCoinData("USD");
+        if(update[1][1]!= null) {
+            test7Result.setText("PASSED");
+        }else{
+            test7Result.setText("FAILED");
+        }
 
         TextView test1 = findViewById(R.id.Test1);
         test1.setText("nameConversion converts coin name to abberviation");
