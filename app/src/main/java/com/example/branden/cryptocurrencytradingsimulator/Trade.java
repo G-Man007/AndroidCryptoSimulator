@@ -29,7 +29,6 @@ import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompA
  * testing purposes but will be implemented as the default window for selecting a crypto-currency.
  */
 public class Trade extends AppCompatActivity {
-
     private TransactionsDatabase dbTransacation;
     private PortfolioDatabase dbPortfolio;
     private PortfolioHistoryDatabase dbhistory;
@@ -84,6 +83,10 @@ public class Trade extends AppCompatActivity {
         Date d7 = calendar.getTime();
 
         double[] prices = weeklyPriceInfo(currency);
+
+        TextView currentPrice = findViewById(R.id.value);
+        String currentValue = Double.toString(prices[6]);
+        currentPrice.setText(currentValue);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(d7, prices[0]),
