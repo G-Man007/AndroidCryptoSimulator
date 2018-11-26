@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class javaCryptoCompAPI {
@@ -235,12 +236,18 @@ public class javaCryptoCompAPI {
     static double[] weeklyPriceInfo(String coin){
 	   String urlCoin = nameConversion(coin);
 	   double[] priceHolder = new double[7];
-	   String historical = null;
+	   String historical = "{}";
 	   String usdPrice = null;
 	   double price = 0;
-	   Instant instant = Instant.now();
-	   long currentTimeStamp = instant.toEpochMilli();
-	   String time = Long.toString(currentTimeStamp);
+        Instant instant = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            instant = Instant.now();
+        }
+        long currentTimeStamp = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentTimeStamp = instant.toEpochMilli();
+        }
+        String time = Long.toString(currentTimeStamp);
 	   String previous = time.substring(0, time.length() - 3);
 	   long previousDay = Long.parseLong(previous);
 	   
@@ -263,9 +270,15 @@ public class javaCryptoCompAPI {
 	 		} catch(Exception e) {
 	 		System.out.println(e);
 	 		}
-	   
-	   JSONObject history = new JSONObject(historical);
-	   usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
+
+           JSONObject history = null;
+           try {
+               history = new JSONObject(historical);
+               usdPrice = history.getJSONObject(urlCoin).get(currencyChosen).toString();
+           } catch (JSONException e) {
+               e.printStackTrace();
+           }
+
 	   price = Double.parseDouble(usdPrice);
 	   
 	   priceHolder[i]=price;
