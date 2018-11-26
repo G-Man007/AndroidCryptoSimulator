@@ -17,7 +17,6 @@ import java.util.Arrays;
  **/
 public class Search extends AppCompatActivity {
 
-    private TextView mTextMessage;
     String[] cryptoName = javaCryptoCompAPI.getCoinNames();
 
     /**
@@ -31,15 +30,18 @@ public class Search extends AppCompatActivity {
      * @ccs.Post-condition the textview is set, and the navigation buttons are configured and the list is
      *                     created and displayed.
      * */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
         Arrays.sort(cryptoName);
 
         ListView list = (ListView)findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, cryptoName);
+
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,8 +52,6 @@ public class Search extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mTextMessage = (TextView) findViewById(R.id.message);
         configureNavigationButtons();
     }
 
@@ -62,8 +62,8 @@ public class Search extends AppCompatActivity {
      *
      * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
-     * */
-    private void configureNavigationButtons(){
+     */
+    private void configureNavigationButtons() {
         Button homeButton = (Button) findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override

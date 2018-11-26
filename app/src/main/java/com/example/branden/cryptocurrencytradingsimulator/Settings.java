@@ -17,8 +17,6 @@ import com.jjoe64.graphview.GraphView;
  **/
 public class Settings extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
     /**
      * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Settings onCreate() function sets the view to the correct XML
@@ -26,13 +24,12 @@ public class Settings extends AppCompatActivity {
      *
      * @ccs.Pre-condition The navigation button to launch Settings.
      * @ccs.Post-condition the textview is set, and the navigation buttons are configured.
-     * */
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         configureNavigationButtons();
     }
 
@@ -43,8 +40,8 @@ public class Settings extends AppCompatActivity {
      *
      * @ccs.Pre-condition {@link #onCreate(Bundle)} is called.
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
-     * */
-    private void configureNavigationButtons(){
+     */
+    private void configureNavigationButtons() {
         Button homeButton = (Button) findViewById(R.id.homeBtn);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override

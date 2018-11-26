@@ -3,6 +3,9 @@ package com.example.branden.cryptocurrencytradingsimulator;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
+import java.util.Vector;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,25 +19,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * onCreate is the default function called when starting an activity hence "onCreate" and runs the default
+     * functions required based on the activity.
+     *
+     * @ccs.Pre-condition
+     * @ccs.Post-condition
+     */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
     }
 
+    /**
+     * onUpgrade
+     *
+     * @ccs.Pre-condition
+     * @ccs.Post-condition
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP IF TABLE EXISTS " + MDatabasename);
         onCreate(sqLiteDatabase);
     }
 
-    public boolean addStrData(String tableName, String columnName, String strValue ){
+    public boolean addStrData(String tableName, String columnName, String strValue) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues ContentValue = new ContentValues();
         long result;
 
         ContentValue.put(columnName, strValue);
-        result = db.insert(columnName, null , ContentValue);
-        if(result == -1)
+        result = db.insert(columnName, null, ContentValue);
+        if (result == -1)
             return false;
 
         //Log.d(TAG, "addData: Adding " + PTCol1 + "to " + Portfolio_Table);
@@ -42,33 +58,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean addIntData(String tableName, String columnName, int intValue ){
+    public boolean addIntData(String tableName, String columnName, int intValue) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues ContentValue = new ContentValues();
         long result;
 
         ContentValue.put(columnName, intValue);
-        result = db.insert(columnName, null , ContentValue);
-        if(result == -1)
+        result = db.insert(columnName, null, ContentValue);
+        if (result == -1)
             return false;
 
         return true;
     }
 
-    public boolean addRealData(String tableName, String columnName, double realValue ){
+    public boolean addRealData(String tableName, String columnName, double realValue) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues ContentValue = new ContentValues();
         long result;
 
         ContentValue.put(columnName, realValue);
-        result = db.insert(columnName, null , ContentValue);
-        if(result == -1)
+        result = db.insert(columnName, null, ContentValue);
+        if (result == -1)
             return false;
 
         return true;
     }
 
-    public Cursor getData(){
+    public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * From " + MDatabasename;
         Cursor data = db.rawQuery(query, null);
