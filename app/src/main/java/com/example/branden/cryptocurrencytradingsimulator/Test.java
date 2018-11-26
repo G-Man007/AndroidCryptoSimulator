@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.TextView;
-||||||| merged common ancestors
-=======
 import android.widget.TextView;
-
 import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.nameConversion;
->>>>>>> b77d59746e2ec400e7b92222fad6b087cf1d388e
 
 /**
  * Creates the Settings activity that is displayed to the user. Settings is currently blank as it is lower priority
