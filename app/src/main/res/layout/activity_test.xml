@@ -37,6 +37,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/Test1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -44,6 +45,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/Test1Result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -57,6 +59,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/Test2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -64,6 +67,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/Test2Result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -77,6 +81,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/Test3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -85,6 +90,7 @@
 
 
                     <TextView
+                        android:id="@+id/Test3Result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -96,6 +102,7 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/Test4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -104,6 +111,7 @@
 
 
                     <TextView
+                            android:id="@+id/Test4Result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -115,6 +123,7 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/Test5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -123,6 +132,7 @@
 
 
                     <TextView
+                            android:id="@+id/Test5Result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -134,6 +144,7 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/Test6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -142,6 +153,7 @@
 
 
                     <TextView
+                            android:id="@+id/Test6Result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -153,6 +165,7 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/Test7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -161,6 +174,7 @@
 
 
                     <TextView
+                            android:id="@+id/Test7Result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -172,6 +186,7 @@
                         android:layout_height="match_parent">
 
                     <TextView
+                            android:id="@+id/Test8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -180,177 +195,7 @@
 
 
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test9"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test10"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test11"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test12"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test13"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test14"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test15"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test16"
-                            android:textSize="20sp" />
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="PASS"
-                            android:textSize="20sp" />
-                </TableRow>
-                <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:text="Test17"
-                            android:textSize="20sp" />
-
-
-                    <TextView
+                            android:id="@+id/Test8Result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
