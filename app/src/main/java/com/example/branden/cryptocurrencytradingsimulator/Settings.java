@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity {
         });
 
         Button testButton = findViewById(R.id.testBtn);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Settings.this, Test.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

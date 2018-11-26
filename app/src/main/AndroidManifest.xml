@@ -35,6 +35,11 @@
                 android:parentActivityName=".Home"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Test"
+                android:parentActivityName=".Settings"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

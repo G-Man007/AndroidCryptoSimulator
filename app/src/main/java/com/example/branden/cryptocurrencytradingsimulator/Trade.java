@@ -109,7 +109,7 @@ public class Trade extends AppCompatActivity {
 
         TextView currentPrice = findViewById(R.id.value);
         String currentValue = Double.toString(prices[6]);
-        currentPrice.setText(currentValue);
+        currentPrice.setText('$' + currentValue);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(d7, prices[0]),

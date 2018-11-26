@@ -56,6 +56,7 @@ public class javaCryptoCompAPI {
                 coinData.append(inputLine);
             }
             in.close();
+            con.disconnect();
             coinPrices = coinData.toString();
 
         } catch (Exception e) {
@@ -66,7 +67,7 @@ public class javaCryptoCompAPI {
 
             for (int i = 0; i < 69; i++) {
 
-                JSONObject raw = coins.getJSONObject("RAW").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
+                JSONObject raw = coins.getJSONObject("DISPLAY").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
 
                 String PRICE = raw.get("PRICE").toString();
                 String LASTUPDATE = raw.get("LASTUPDATE").toString();
@@ -130,6 +131,7 @@ public class javaCryptoCompAPI {
                 coinData.append(inputLine);
             }
             in.close();
+            con.disconnect();
             coinPrices = coinData.toString();
 
         } catch (Exception e) {
@@ -286,10 +288,8 @@ public class javaCryptoCompAPI {
     static String[] search(String coin) {
         String coinInfo[] = new String[14];
         for (int i = 0; i < 69; i++) {
-            if (coin == mCoinData[i][13] || coin == mCoinData[i][0]) {
-                for (int j = 0; j < 14; j++) {
-                    coinInfo[j] = mCoinData[i][j];
-                }
+            if (coin.equals(mCoinData[i][13]) || coin.equals(mCoinData[i][0])) {
+                System.arraycopy(mCoinData[i], 0, coinInfo, 0, 14);
                 break;
             }
         }
@@ -334,6 +334,7 @@ public class javaCryptoCompAPI {
 
         String jsonString = sb.toString();
         System.out.println("JSON: " + jsonString);
+        urlConnection.disconnect();
 
         return new JSONObject(jsonString);
     }

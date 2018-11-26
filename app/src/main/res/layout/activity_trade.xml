@@ -254,27 +254,6 @@
                         android:textAlignment="center"
                         android:textSize="15sp"/>
                 </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="Return on Equity (ttm)"
-                        android:textAlignment="center"
-                        android:textSize="15sp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="15.75%"
-                        android:textAlignment="center"
-                        android:textSize="15sp"/>
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
