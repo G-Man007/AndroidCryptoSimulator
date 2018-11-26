@@ -115,12 +115,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnUpdate"
+        android:id="@+id/testBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center"
         android:layout_marginBottom="8dp"
-        android:text="Save Setting"
+        android:text="Run Tests"
         app:layout_constraintBottom_toTopOf="@+id/navBar" />
 
     <LinearLayout
