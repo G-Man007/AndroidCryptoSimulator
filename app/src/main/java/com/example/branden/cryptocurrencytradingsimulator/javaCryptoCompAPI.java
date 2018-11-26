@@ -264,7 +264,6 @@ public class javaCryptoCompAPI {
         return priceHolder;
     }
 
-
     /**
      * Function used in {@link Search} to populate a list of used coins
      *

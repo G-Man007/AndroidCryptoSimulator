@@ -54,6 +54,29 @@ public class Trade extends AppCompatActivity {
         String cryptoName = getIntent().getStringExtra("name");
         name.setText(cryptoName);
 
+        String[] tradeInfo = javaCryptoCompAPI.search(cryptoName);
+
+        TextView value = findViewById(R.id.value);
+        value.setText(tradeInfo[1]);
+        TextView open = findViewById(R.id.open);
+        open.setText(tradeInfo[3]);
+        TextView low = findViewById(R.id.low);
+        low.setText(tradeInfo[5]);
+        TextView high = findViewById(R.id.high);
+        high.setText(tradeInfo[4]);
+        TextView mktCap = findViewById(R.id.mktCap);
+        mktCap.setText(tradeInfo[6]);
+        TextView supply = findViewById(R.id.supply);
+        supply.setText(tradeInfo[7]);
+        TextView tVol = findViewById(R.id.tVol);
+        tVol.setText(tradeInfo[8]);
+        TextView fVol = findViewById(R.id.fVol);
+        fVol.setText(tradeInfo[9]);
+        TextView pctChng24 = findViewById(R.id.pctChng24);
+        pctChng24.setText(tradeInfo[11]);
+        TextView chng24hr = findViewById(R.id.chng24hr);
+        chng24hr.setText(tradeInfo[12]);
+
         configureGraph(cryptoName);
         configureNavigationButtons();
     }

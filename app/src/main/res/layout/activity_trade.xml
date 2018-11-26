@@ -51,7 +51,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Statistics!"
+                android:text="Statistics"
                 android:textAlignment="center"
                 android:textSize="20sp"/>
 
@@ -73,6 +73,7 @@
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/open"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -89,11 +90,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Previous Close"
+                        android:text="High Day"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/high"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -109,11 +111,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Day's Range"
+                        android:text="Low Day"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/low"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -129,11 +132,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="52 Week Range"
+                        android:text="Market Cap"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/mktCap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="$165.47 - $251.11"
@@ -149,11 +153,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Volume"
+                        android:text="Supply"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/supply"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -170,11 +175,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Average Volume"
+                        android:text="Crypto Volume"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/tVol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -191,11 +197,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Bid"
+                        android:text="USD Volume"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/fVol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -212,11 +219,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Ask"
+                        android:text="Percent Change"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/pctChng24"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -233,11 +241,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="Return on Assets (ttm)"
+                        android:text="Price Change"
                         android:textAlignment="center"
                         android:textSize="15sp"/>
 
                     <TextView
+                        android:id="@+id/chng24hr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
