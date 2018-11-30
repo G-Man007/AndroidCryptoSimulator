@@ -115,6 +115,15 @@
     </LinearLayout>
 
     <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginBottom="8dp"
+            android:text="Reset Portfolio"
+            app:layout_constraintBottom_toTopOf="@+id/testBtn" />
+
+    <Button
         android:id="@+id/testBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -24,13 +24,6 @@
                 android:text="$1010.56"
                 android:textAlignment="center"
                 android:textSize="30sp"/>
-
-        <com.jjoe64.graphview.GraphView
-                android:id="@+id/homeGraph"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintBottom_toTopOf="@+id/portfolioTable"
-                app:layout_constraintTop_toBottomOf="@id/textPortfolio"/>
     </LinearLayout>
 
     <LinearLayout
@@ -39,9 +32,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
-            app:layout_constraintTop_toBottomOf="@+id/upperDisplay"
-            tools:layout_editor_absoluteX="8dp"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/upperDisplay">
 
         <ListView
                 android:layout_weight="1"
