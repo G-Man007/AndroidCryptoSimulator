@@ -187,7 +187,7 @@ public class javaCryptoCompAPI {
 
             for (int i = 0; i < 69; i++) {
 
-                JSONObject raw = coins.getJSONObject("RAW").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
+                JSONObject raw = coins.getJSONObject("DISPLAY").getJSONObject(mCoinShort[i]).getJSONObject(currencyChosen);
 
                 String PRICE = raw.get("PRICE").toString();
                 String LASTUPDATE = raw.get("LASTUPDATE").toString();
