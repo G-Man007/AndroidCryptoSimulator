@@ -6,6 +6,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_trade">Trade</string>
     <string name="btn_update">Update</string>
+    <string name="passed">PASSED</string>
+    <string name="failed">FAILED</string>
     <string-array name="yesNo">
         <item></item>
         <item>Yes</item>

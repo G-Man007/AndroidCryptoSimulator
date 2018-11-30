@@ -6,26 +6,16 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              tools:context=".Home">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:isScrollContainer="false"
-        app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|bottom"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/upperDisplay">
 
 
-            <TextView
+        <TextView
                 android:id="@+id/textPortfolio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,84 +23,32 @@
                 android:paddingBottom="5dp"
                 android:text="$1010.56"
                 android:textAlignment="center"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
-            <com.jjoe64.graphview.GraphView
+        <com.jjoe64.graphview.GraphView
                 android:id="@+id/homeGraph"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:layout_constraintBottom_toTopOf="@+id/portfolioTable"
-                app:layout_constraintTop_toBottomOf="@id/textPortfolio" />
+                app:layout_constraintTop_toBottomOf="@id/textPortfolio"/>
+    </LinearLayout>
 
-            <TableLayout
-                android:id="@+id/portfolioTable"
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
+            app:layout_constraintTop_toBottomOf="@+id/upperDisplay"
+            tools:layout_editor_absoluteX="8dp"
+            app:layout_constraintVertical_bias="0.0">
+
+        <ListView
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/btnUpdate"
-                app:layout_constraintTop_toBottomOf="@+id/homeGraph">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="CEFS"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="$802.20"
-                        android:textSize="20sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="Ethereum"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="$207.90"
-                        android:textSize="20sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="Ripple"
-                        android:textSize="20sp" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="$0.46"
-                        android:textSize="20sp" />
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="0dp"
+                android:id="@+id/listDisplay"/>
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/navBar"
@@ -126,38 +64,38 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         <Button
-            android:id="@+id/homeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_home" />
+                android:id="@+id/homeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_home"/>
 
         <Button
-            android:id="@+id/searchBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_search"
-            app:layout_constraintLeft_toRightOf="@+id/homeBtn"
-            app:layout_constraintStart_toEndOf="@+id/homeBtn" />
+                android:id="@+id/searchBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_search"
+                app:layout_constraintLeft_toRightOf="@+id/homeBtn"
+                app:layout_constraintStart_toEndOf="@+id/homeBtn"/>
 
         <Button
-            android:id="@+id/settingsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_settings"
-            app:layout_constraintLeft_toRightOf="@+id/searchBtn"
-            app:layout_constraintStart_toEndOf="@+id/searchBtn" />
+                android:id="@+id/settingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_settings"
+                app:layout_constraintLeft_toRightOf="@+id/searchBtn"
+                app:layout_constraintStart_toEndOf="@+id/searchBtn"/>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:text="@string/btn_update"
-        app:layout_constraintBottom_toTopOf="@+id/navBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:text="@string/btn_update"
+            app:layout_constraintBottom_toTopOf="@+id/navBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

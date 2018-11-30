@@ -313,6 +313,15 @@ public class javaCryptoCompAPI {
         return("ERROR");
     }
 
+    static String abbrevConversion(String coin) {
+        for (int i = 0; i < 69; i++) {
+            if (mCoinNames[i].equals(coin)) {
+                return(mCoinNames[i]);
+            }
+        }
+        return("ERROR");
+    }
+
     public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
         HttpURLConnection urlConnection = null;
         URL url = new URL(urlString);

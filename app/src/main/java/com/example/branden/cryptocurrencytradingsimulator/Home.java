@@ -1,20 +1,24 @@
 package com.example.branden.cryptocurrencytradingsimulator;
-
+import java.text.NumberFormat;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.*;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.currencyChosen;
-import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.initializeCoinData;
-import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.updateCoinData;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.*;
 
 /**
  * Creates the Home activity that is displayed to the user on boot which houses the portfolio and graph related to
@@ -37,9 +41,16 @@ public class Home extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_home);
         initializeCoinData(currencyChosen);
+        initializeSharedPref();
         configureUpdateBtn();
-        configureGraph();
         configureNavigationButtons();
+        displayHome();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayHome();
     }
 
     private void configureGraph() {
@@ -106,5 +117,58 @@ public class Home extends AppCompatActivity {
                 updateCoinData();
             }
         });
+    }
+
+    private void initializeSharedPref(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Home.this);
+        if(!prefs.contains("initialized")){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("initialized", 1);
+            editor.putString("money", "100000");
+            String[] names = getCoinNames();
+            for(int i = 0; i < names.length; i++){
+                editor.putInt(names[i], 0);
+            }
+            editor.apply();
+        }
+    }
+
+    private void displayHome(){
+        configureGraph();
+        List<String> populateList = new ArrayList<>();
+        List<Integer> quantityList = new ArrayList<>();
+        String[] cryptoNames = javaCryptoCompAPI.getCoinNames();
+        ListView listDisplay = findViewById(R.id.listDisplay);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView portfolio = findViewById(R.id.textPortfolio);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        String moneyString = formatter.format(Double.parseDouble(prefs.getString("money", "DEFAULT")));
+        portfolio.setText(moneyString);
+
+        for(int i = 0; i < cryptoNames.length; i++){
+            if(prefs.getInt(cryptoNames[i], -1) > 0){
+                populateList.add(cryptoNames[i]);
+                quantityList.add(prefs.getInt(cryptoNames[i],-1));
+            }
+        }
+        String[] displayedCoins = new String[populateList.size()];
+        displayedCoins = populateList.toArray(displayedCoins);
+        String[] displayedPrices = new String[displayedCoins.length];
+
+        String[] displayedQuantities = new String[displayedCoins.length];
+
+        for(int i = 0; i < displayedPrices.length; i++){
+            displayedPrices[i] = search(nameConversion(displayedCoins[i]))[1];
+            displayedQuantities[i] = Integer.toString((prefs.getInt(displayedCoins[i], -1)));
+        }
+
+        String[] finalDisplay = new String[populateList.size()];
+        for(int i = 0; i < displayedPrices.length; i++){
+            finalDisplay[i] = String.format("%-10s %15s %20s",nameConversion(displayedCoins[i]),displayedQuantities[i],displayedPrices[i]);
+        }
+
+        ArrayAdapter<String> adapterDisplay = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, finalDisplay);
+
+        listDisplay.setAdapter(adapterDisplay);
     }
 }
