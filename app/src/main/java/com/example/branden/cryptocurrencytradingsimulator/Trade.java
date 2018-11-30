@@ -197,7 +197,7 @@ public class Trade extends AppCompatActivity {
                 editor.putString("money",Double.toString(newMoney));
                 editor.apply();
                 String purchaseMessage = "Sell successful, new quantity is: " + Integer.toString(newQuantity);
-                toaster(purchaseMessage, 3000);
+                toaster(purchaseMessage, 6000);
                 String newTotal = "New total money is: " + Double.toString(newMoney);
                 toaster(newTotal, 3000);
             }else{
