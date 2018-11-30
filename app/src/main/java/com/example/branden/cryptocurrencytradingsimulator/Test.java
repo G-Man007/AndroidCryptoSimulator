@@ -33,19 +33,19 @@ public class Test extends AppCompatActivity {
         TextView test7Result = findViewById(R.id.Test7Result);
         String[][] initial = javaCryptoCompAPI.initializeCoinData("USD");
         if(initial[0][0]=="BTC") {
-            test7Result.setText("PASSED");
+            test7Result.setText(getString(R.string.passed));
         }else{
-            test7Result.setText("FAILED");
+            test7Result.setText(getString(R.string.failed));
         }
 
         TextView test8 = findViewById(R.id.Test8);
-        test7.setText("update coin data");
+        test8.setText("update coin data");
         TextView test8Result = findViewById(R.id.Test8Result);
         String[][] update = javaCryptoCompAPI.initializeCoinData("USD");
         if(update[1][1]!= null) {
-            test7Result.setText("PASSED");
+            test8Result.setText(getString(R.string.passed));
         }else{
-            test7Result.setText("FAILED");
+            test8Result.setText(getString(R.string.failed));
         }
 
         TextView test1 = findViewById(R.id.Test1);
@@ -53,18 +53,18 @@ public class Test extends AppCompatActivity {
         TextView test1Result = findViewById(R.id.Test1Result);
 
         if(nameConversion("Bitcoin").equals("BTC")){
-            test1Result.setText("PASSED");
+            test1Result.setText(getString(R.string.passed));
         } else{
-            test1Result.setText("FAILED");
+            test1Result.setText(getString(R.string.failed));
         }
 
         TextView test2 = findViewById(R.id.Test2);
         test2.setText("nameConversion returns 'ERROR' on bad coin input");
         TextView test2Result = findViewById(R.id.Test2Result);
         if(nameConversion("TestingName").equals("ERROR")) {
-            test2Result.setText("PASSED");
+            test2Result.setText(getString(R.string.passed));
         } else{
-            test2Result.setText("FAILED");
+            test2Result.setText(getString(R.string.failed));
         }
         configureNavigationButtons();
     }
