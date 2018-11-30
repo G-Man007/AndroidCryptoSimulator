@@ -1,5 +1,7 @@
 package com.example.branden.cryptocurrencytradingsimulator;
 import java.text.NumberFormat;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ public class Home extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_home);
         initializeCoinData(currencyChosen);
-        initializeSharedPref();
+        initializeSharedPref(this,false);
         configureUpdateBtn();
         configureNavigationButtons();
         displayHome();
@@ -51,29 +53,6 @@ public class Home extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         displayHome();
-    }
-
-    private void configureGraph() {
-
-        GraphView graph = findViewById(R.id.homeGraph);
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        graph.getGridLabelRenderer().setHumanRounding(false);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
-                new DataPoint(1, 802.20),
-                new DataPoint(2, 207.90),
-                new DataPoint(3, .46)
-        });
-        graph.addSeries(series);
-
-        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(1, 1010.56),
-                new DataPoint(2, 1010.56),
-                new DataPoint(3, 1010.56)
-        });
-        graph.addSeries(series2);
-
-        staticLabelsFormatter.setHorizontalLabels(new String[]{"CEFS", "Ethereum", "Ripple"});
-        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
     }
 
     /**
@@ -119,9 +98,9 @@ public class Home extends AppCompatActivity {
         });
     }
 
-    private void initializeSharedPref(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Home.this);
-        if(!prefs.contains("initialized")){
+    public void initializeSharedPref(Context context, Boolean force){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if(force || !prefs.contains("initialized")){
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("initialized", 1);
             editor.putString("money", "100000");
@@ -134,7 +113,6 @@ public class Home extends AppCompatActivity {
     }
 
     private void displayHome(){
-        configureGraph();
         List<String> populateList = new ArrayList<>();
         List<Integer> quantityList = new ArrayList<>();
         String[] cryptoNames = javaCryptoCompAPI.getCoinNames();
@@ -168,7 +146,6 @@ public class Home extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapterDisplay = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, finalDisplay);
-
         listDisplay.setAdapter(adapterDisplay);
     }
 }

@@ -221,7 +221,6 @@ public class javaCryptoCompAPI {
                 mCoinData[i][12] = CHANGE24HOUR;
 
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
