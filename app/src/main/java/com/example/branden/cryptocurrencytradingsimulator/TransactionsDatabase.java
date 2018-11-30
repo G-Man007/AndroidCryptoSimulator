@@ -17,6 +17,8 @@ public class TransactionsDatabase extends DatabaseHelper {
         super(context, "transacationsDatabase");
     }
 
+    public Cursor mData;
+
     /**
      * The default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity.
@@ -27,11 +29,20 @@ public class TransactionsDatabase extends DatabaseHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + MDatabasename + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PTCol1 + "TEXT" +
-                PTCol2 + "INTEGER" + // 8-bit floating point number
-                PTCol3 + "INTEGER" +
-                PTCol4 + "REAL";
+                PTCol1 + " TEXT " +
+                PTCol2 + " INTEGER " + // 8-bit floating point number
+                PTCol3 + " INTEGER " +
+                PTCol4 + " REAL)";
         sqLiteDatabase.execSQL(createTable);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + MDatabasename  + " WHERE ID = ?";
+        Cursor data = db.rawQuery(query, null);
+        mData =data;
+    }
+
+    public Cursor getData() {
+        return mData;
     }
 
     /** Returns the names of the crypto currency.

@@ -34,7 +34,6 @@ public class Test extends AppCompatActivity {
 
         boolean[] testResult = new boolean[8];
 
-
         TextView test1 = findViewById(R.id.Test1);
         test1.setText("nameConversion full name to abberviation");
         TextView test1Result = findViewById(R.id.Test1Result);
@@ -100,9 +99,9 @@ public class Test extends AppCompatActivity {
         TextView test7Result = findViewById(R.id.Test7Result);
         String[][] initial = javaCryptoCompAPI.initializeCoinData("USD");
         if(initial[0][0]=="BTC") {
-            test7Result.setText("PASSED");
+            test7Result.setText(getString(R.string.passed));
         }else{
-            test7Result.setText("FAILED");
+            test7Result.setText(getString(R.string.failed));
         }
 
         TextView test8 = findViewById(R.id.Test8);
@@ -115,7 +114,7 @@ public class Test extends AppCompatActivity {
             test8Result.setText("FAILED");
         }
 
-        /*TextView test9 = findViewById(R.id.Test9);
+        TextView test9 = findViewById(R.id.Test9);
         test9.setText("weekly price data");
         TextView test9Result = findViewById(R.id.Test9Result);
         double[] weekData = javaCryptoCompAPI.weeklyPriceInfo("Bitcoin");
@@ -123,7 +122,7 @@ public class Test extends AppCompatActivity {
             test9Result.setText("PASSED");
         }else{
             test9Result.setText("FAILED");
-        }*/
+        }
 
         TextView test10 = findViewById(R.id.Test10);
         test10.setText("coin name list");
@@ -139,7 +138,7 @@ public class Test extends AppCompatActivity {
         test11.setText("get Portfolio Data");
         TextView test11Result = findViewById(R.id.Test11Result);
         Cursor cur = PortDatabase.getData();
-        if(cur != null  ) {
+        if(cur == null  ) {
             test11Result.setText("PASSED");
         }else{
             test11Result.setText("FAILED");
@@ -149,7 +148,7 @@ public class Test extends AppCompatActivity {
         test12.setText("get Portfolio History Data");
         TextView test12Result = findViewById(R.id.Test12Result);
         cur = PortHistDatabase.getData();
-        if(cur != null  ) {
+        if(cur == null  ) {
             test12Result.setText("PASSED");
         }else{
             test12Result.setText("FAILED");
@@ -159,21 +158,14 @@ public class Test extends AppCompatActivity {
         test13.setText("get Transaction Data");
         TextView test13Result = findViewById(R.id.Test13Result);
         cur = TransDatabase.getData();
-        if(cur != null  ) {
+        if(cur == null  ) {
             test13Result.setText("PASSED");
         }else{
             test13Result.setText("FAILED");
         }
 
-        /*TextView test14 = findViewById(R.id.Test14);
-        test8.setText("get Portfolio Data");
-        TextView test14Result = findViewById(R.id.Test14Result);
-        cur = PortDatabase.getData();
-        if(cur.getString(1) != null  ) {
-            test14Result.setText("PASSED");
-        }else{
-            test14Result.setText("FAILED");
-        }*/
+
+
         configureNavigationButtons();
     }
 

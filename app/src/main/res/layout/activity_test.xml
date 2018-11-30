@@ -312,28 +312,6 @@
                         android:text="PASS"
                         android:textSize="20sp" />
                 </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Test14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:text="Test14"
-                        android:textSize="20sp" />
-
-
-                    <TextView
-                        android:id="@+id/Test14Result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="11"
-                        android:text="PASS"
-                        android:textSize="20sp" />
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>

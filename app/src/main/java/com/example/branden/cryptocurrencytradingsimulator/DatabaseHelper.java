@@ -84,11 +84,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select * From " + MDatabasename;
-        Cursor data = db.rawQuery(query, null);
-
-        return data;
-    }
+//    public Cursor getData() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        //String query = "Select * From " + MDatabasename;
+//        //String query = "select * from " + MDatabasename + " where ID = ?";
+//        String query = "SELECT * FROM " + MDatabasename  + " WHERE ID = ?";
+//        Cursor data = db.rawQuery(query, null);
+//
+//        return data;
+//    }
 }

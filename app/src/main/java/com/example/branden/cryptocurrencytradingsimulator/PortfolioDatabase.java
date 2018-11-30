@@ -15,6 +15,9 @@ public class PortfolioDatabase extends DatabaseHelper {
     public static final String PTCol4 = "buyDate";
     public static final String PTCol5 = "name";
 
+
+    public Cursor mData;
+
     public static final String TradeHistory_Table = "tradeHistory";
 
 
@@ -25,12 +28,23 @@ public class PortfolioDatabase extends DatabaseHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + MDatabasename + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PTCol1 + "INTEGER" +
-                PTCol2 + "REAL" + // 8-bit floating point number
-                PTCol3 + "TEXT" +
-                PTCol4 + "TEXT" +
-                PTCol5 + "TEXT";
+                PTCol1 + " INTEGER " +
+                PTCol2 + " REAL " + // 8-bit floating point number
+                PTCol3 + " TEXT " +
+                PTCol4 + " TEXT " +
+                PTCol5 + " TEXT)";
         sqLiteDatabase.execSQL(createTable);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //String query = "Select * From " + MDatabasename;
+        //String query = "select * from " + MDatabasename + " where ID = ?";
+        String query = "SELECT * FROM " + MDatabasename  + " WHERE ID = ?";
+        Cursor data = db.rawQuery(query, null);
+        mData =data;
+    }
+
+    public Cursor getData() {
+        return mData;
     }
 
     /**A getter that returns the date and time of when a crypto was bought.

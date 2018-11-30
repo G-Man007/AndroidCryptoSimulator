@@ -10,6 +10,8 @@ public class SettingsDatabase extends DatabaseHelper {
 
     public static final String PTCol1 = "buyingPower";
 
+    public Cursor mData;
+
     public SettingsDatabase(Context context) {
         super(context, "settingsDatabase");
     }
@@ -17,8 +19,15 @@ public class SettingsDatabase extends DatabaseHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + MDatabasename + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PTCol1 + "REAL";
+                PTCol1 + " REAL)";
         sqLiteDatabase.execSQL(createTable);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //String query = "Select * From " + MDatabasename;
+        //String query = "select * from " + MDatabasename + " where ID = ?";
+        String query = "SELECT * FROM " + MDatabasename  + " WHERE ID = ?";
+        Cursor data = db.rawQuery(query, null);
+        mData =data;
     }
 
     public Vector<Double> getBuyingPower() {

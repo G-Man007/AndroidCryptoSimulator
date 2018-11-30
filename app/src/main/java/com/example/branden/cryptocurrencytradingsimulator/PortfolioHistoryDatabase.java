@@ -11,6 +11,8 @@ public class PortfolioHistoryDatabase extends DatabaseHelper {
     public static final String PTCol1 = "portfolioValue";//abbreviations
     public static final String PTCol2 = "date";//mmddyy
 
+    public Cursor mData;
+
     public PortfolioHistoryDatabase(Context context) {
         super(context, "PortfolioHistoryDatabase");
     }
@@ -25,9 +27,20 @@ public class PortfolioHistoryDatabase extends DatabaseHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + MDatabasename + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PTCol1 + "REAL" +
-                PTCol2 + "TEXT";//MMDDYY
+                PTCol1 + " REAL " +
+                PTCol2 + " TEXT)";//MMDDYY
         sqLiteDatabase.execSQL(createTable);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //String query = "Select * From " + MDatabasename;
+        //String query = "select * from " + MDatabasename + " where ID = ?";
+        String query = "SELECT * FROM " + MDatabasename  + " WHERE ID = ?";
+        Cursor data = db.rawQuery(query, null);
+        mData =data;
+    }
+
+    public Cursor getData() {
+        return mData;
     }
 
     /**A getter that returns the date and time of when a crypto currency was bought.

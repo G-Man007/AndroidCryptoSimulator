@@ -1,8 +1,10 @@
 package com.example.branden.cryptocurrencytradingsimulator;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,13 +17,11 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.GraphView;
 import android.widget.Toast;
 import android.os.Handler;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Vector;
 
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.nameConversion;
+import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.search;
 import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompAPI.weeklyPriceInfo;
 
 /**
@@ -29,14 +29,6 @@ import static com.example.branden.cryptocurrencytradingsimulator.javaCryptoCompA
  * testing purposes but will be implemented as the default window for selecting a crypto-currency.
  */
 public class Trade extends AppCompatActivity {
-    private TransactionsDatabase dbTransacation;
-    private PortfolioDatabase dbPortfolio;
-    private PortfolioHistoryDatabase dbhistory;
-    private SettingsDatabase dbSettings;
-
-    private TextView cryptoName;
-    private EditText quantity;
-
     /**
      * The default function called when starting an activity hence "onCreate" and runs the default
      * functions required based on the activity. The Trade onCreate() function creates the graphs, sets the view to the
@@ -50,11 +42,10 @@ public class Trade extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade);
         TextView name = findViewById(R.id.name);
-        quantity = findViewById(R.id.etQuantity);
         String cryptoName = getIntent().getStringExtra("name");
         name.setText(cryptoName);
 
-        String[] tradeInfo = javaCryptoCompAPI.search(cryptoName);
+        String[] tradeInfo = search(cryptoName);
 
         TextView value = findViewById(R.id.value);
         value.setText(tradeInfo[1]);
@@ -79,6 +70,7 @@ public class Trade extends AppCompatActivity {
 
         configureGraph(cryptoName);
         configureNavigationButtons();
+        configureBuySellButtons();
     }
 
     /**
@@ -108,17 +100,17 @@ public class Trade extends AppCompatActivity {
         double[] prices = weeklyPriceInfo(currency);
 
         TextView currentPrice = findViewById(R.id.value);
-        String currentValue = Double.toString(prices[6]);
+        String currentValue = Double.toString(prices[0]);
         currentPrice.setText('$' + currentValue);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(d7, prices[0]),
-                new DataPoint(d6, prices[1]),
-                new DataPoint(d5, prices[2]),
+                new DataPoint(d7, prices[6]),
+                new DataPoint(d6, prices[5]),
+                new DataPoint(d5, prices[4]),
                 new DataPoint(d4, prices[3]),
-                new DataPoint(d3, prices[4]),
-                new DataPoint(d2, prices[5]),
-                new DataPoint(d1, prices[6])
+                new DataPoint(d3, prices[2]),
+                new DataPoint(d2, prices[1]),
+                new DataPoint(d1, prices[0])
         });
         graph.addSeries(series);
 
@@ -141,74 +133,37 @@ public class Trade extends AppCompatActivity {
      *                     that is being bought.
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void buy() {
-        String temp = quantity.getText().toString();
-        int quantity = Integer.parseInt(temp);
-        int bPrice = 0;//buy price
-        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
-        String name = cryptoName.getText().toString();
-        String time = "";
-        String date = "";
+        TextView quantity = findViewById(R.id.etQuantity);
+        int userInput;
+        try{
+            userInput = Integer.parseInt(quantity.getText().toString());
+            if(userInput == 0){
+                toaster("No changes were made.", 3000);
+                return;
+            } else if(userInput < 0){
+                toaster("Negative values are not valid.", 3000);
+                return;
+            }
+            String cryptoName = getIntent().getStringExtra("name");
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Trade.this);
+            SharedPreferences.Editor editor = sharedPref.edit();
 
-        String[] cryptoData = apiData.search(name);
-        bPrice = Integer.parseInt(cryptoData[1]);
-
-        //get buying power to see if play has enough funds
-        Vector<Double> temp1 = dbSettings.getBuyingPower();
-        double buyPower = temp1.get(0);
-
-        if (buyPower < (quantity * bPrice)) {
-            toaster("You do not have enough buying power to execute this trade", 1500);
-            return;
+            if(Double.parseDouble(sharedPref.getString("money","DEFAULT")) >=  (Double.parseDouble(search(nameConversion(cryptoName))[1].replaceAll("[^\\d.]+", "")) * userInput)){
+                int currentQuantity = sharedPref.getInt(cryptoName, 0);
+                int newQuantity = currentQuantity + userInput;
+                Double newMoney = Double.parseDouble(sharedPref.getString("money","DEFAULT")) - (Double.parseDouble(search(nameConversion(cryptoName))[1].replaceAll("[^\\d.]+", "")) * userInput);
+                editor.putInt(cryptoName, newQuantity);
+                editor.putString("money",Double.toString(newMoney));
+                editor.apply();
+                String purchaseMessage = "Purchase successful, new quantity is: " + Integer.toString(newQuantity);
+                toaster(purchaseMessage, 3000);
+            }else{
+                toaster("Not enough currency to make purchase.", 3000);
+            }
+        } catch(Exception e){
+            toaster("Invalid input!", 3000);
         }
-
-        //update portfolio value
-        buyPower -= (quantity * bPrice);
-        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
-
-        //gets time and date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
-
-        String temp2 = dtf.format(now);
-        char[] fullDate = temp2.toCharArray();
-        date = date.copyValueOf(fullDate, 0, 9);//The first 10 charaters are the data
-        time = time.copyValueOf(fullDate, 10, 18);//the last 8 characters are the time
-
-
-        //put data in database
-        //tell user fail if unsuccessful and return
-        boolean success;
-        success = dbTransacation.addStrData("transacationsDatabase", "name", name);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 1);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addIntData("transacationsDatabase", "quantity", quantity);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addRealData("transacationsDatabase", "price", bPrice);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-
-        dbPortfolio.addIntData("portfolioTable", "quantity", quantity);
-        dbPortfolio.addRealData("portfolioTable", "buyPrice", bPrice);
-        dbPortfolio.addStrData("portfolioTable", "buyTime", time);
-        dbPortfolio.addStrData("portfolioTable", "buyDate", date);
-        dbPortfolio.addStrData("portfolioTable", "name", name);
-
-
-        toaster("Your trade was successful!", 1500);
     }
 
     /**
@@ -218,84 +173,39 @@ public class Trade extends AppCompatActivity {
      * @ccs.Pre-condition {@link #onCreate(Bundle)} is called. The user has the necessary amount owned.
      * @ccs.Post-condition Stack is cleared to any previous instance of desired activity, activity is then launched.
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sell() {
-        String temp = quantity.getText().toString();
-        int quantity = Integer.parseInt(temp);
-        int sPrice = 0;//sell price
-        javaCryptoCompAPI apiData = new javaCryptoCompAPI();
-        String name = cryptoName.getText().toString();
-        String time = "";
-        String date = "";
-
-        Vector<String> ownedCrypto = dbPortfolio.getName();
-        Vector<Integer> quantities = dbPortfolio.getQuantity();
-
-        boolean validTrade = false;
-
-        //checks if the crypto to sell is owned and enough is owned
-        for (int x = 0; x < ownedCrypto.size(); x++) {
-            if (ownedCrypto.get(x).equals(name)) {
-                if (quantities.get(x) >= quantity) {
-                    validTrade = true;
-                }
+        TextView quantity = findViewById(R.id.etQuantity);
+        int userInput;
+        try{
+            userInput = Integer.parseInt(quantity.getText().toString());
+            if(userInput == 0){
+                toaster("No changes were made.", 3000);
+                return;
+            } else if(userInput < 0){
+                toaster("Negative values are not valid.", 3000);
+                return;
             }
+            String cryptoName = getIntent().getStringExtra("name");
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Trade.this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            if(sharedPref.getInt(cryptoName,-1) >= userInput){
+                int currentQuantity = sharedPref.getInt(cryptoName, -1);
+                int newQuantity = currentQuantity - userInput;
+                Double newMoney = Double.parseDouble(sharedPref.getString("money","DEFAULT")) + (Double.parseDouble(search(nameConversion(cryptoName))[1].replaceAll("[^\\d.]+", "")) * userInput);
+                editor.putInt(cryptoName, newQuantity);
+                editor.putString("money",Double.toString(newMoney));
+                editor.apply();
+                String purchaseMessage = "Sell successful, new quantity is: " + Integer.toString(newQuantity);
+                toaster(purchaseMessage, 6000);
+                String newTotal = "New total money is: " + Double.toString(newMoney);
+                toaster(newTotal, 3000);
+            }else{
+                toaster("Not enough coins available to make sell.", 3000);
+            }
+        } catch(Exception e){
+            toaster("Invalid input!", 3000);
         }
-
-        if (!validTrade) {
-            toaster("You don't own enough of this crypto to execute this trade", 1500);
-            return;
-        }
-
-        //remove crypto from protfolio database
-
-        //get crypto price from API
-        String[] cryptoData = apiData.search(name);
-        sPrice = Integer.parseInt(cryptoData[1]);
-
-        //get current buying power from database
-        Vector<Double> temp1 = dbSettings.getBuyingPower();
-        double buyPower = temp1.get(0);
-
-        //update portfolio value
-        buyPower += (quantity * sPrice);
-        dbTransacation.addRealData("settingsDatabase", "buyingPower", buyPower);
-
-        //gets time and date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();//2016/11/16 12:08:43
-
-        String temp2 = dtf.format(now);
-        char[] fullDate = temp2.toCharArray();
-        date = date.copyValueOf(fullDate, 0, 9);//The first 10 charaters are the data
-        time = time.copyValueOf(fullDate, 10, 18);//the last 8 characters are the time
-
-
-        //put data in database
-        //tell user fail if unsuccessful and return
-        boolean success;
-        success = dbTransacation.addStrData("transacationsDatabase", "name", name);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addIntData("transacationsDatabase", "transacationsType", 0);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addIntData("transacationsDatabase", "quantity", quantity);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-        success = dbTransacation.addRealData("transacationsDatabase", "price", sPrice);
-        if (!success) {
-            toaster("Trade fail", 1500);
-            return;
-        }
-
-        toaster("Your trade was successful!", 1500);
     }
 
     /**
@@ -328,6 +238,24 @@ public class Trade extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Trade.this, Search.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+    }
+
+    private void configureBuySellButtons(){
+        Button buyButton = findViewById(R.id.buyBtn);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buy();
+            }
+        });
+
+        Button sellButton = findViewById(R.id.sellBtn);
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sell();
             }
         });
     }

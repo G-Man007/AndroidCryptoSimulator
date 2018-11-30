@@ -266,7 +266,7 @@
         android:gravity="center|bottom"
         app:layout_constraintBottom_toTopOf="@id/navBar">
         <Button
-            android:id="@+id/buy"
+            android:id="@+id/buyBtn"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Buy"/>
@@ -276,13 +276,13 @@
             android:hint="#"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/buy"
+            app:layout_constraintLeft_toRightOf="@id/buyBtn"
             android:textAlignment="center"/>
 
         <Button
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:id="@+id/sell"
+                android:id="@+id/sellBtn"
                 android:text="Sell"
                 app:layout_constraintLeft_toRightOf="@+id/etQuantity"
                 app:layout_constraintBottom_toTopOf="@+id/navBar"/>
